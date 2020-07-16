@@ -9,12 +9,22 @@ const connection = mysql.createConnection({
 
 connection.connect();
 
-connection.query("SELECT 1 + 1 AS solution", (error, results, fields) => {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log("The solution is: ", results[0].solution);
+connection.query(
+  `
+   SELECT 
+      *
+   FROM
+      xref_user_technologies
+   WHERE
+      technology_id = 1;
+   `,
+  (err, res) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(res);
+    }
   }
-});
+);
 
 connection.end();
