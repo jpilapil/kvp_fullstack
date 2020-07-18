@@ -11,10 +11,15 @@ const searchUsers = require("../../queries/searchUsers");
 router.get("/", (req, res) => {
   console.log(req.query);
   const { searchTerm, order } = req.query;
-
-  db.query(searchUsers, [searchTerm, order])
+  let constructedSearchTerm;
+  if (searchTerm === "" || searchTerm === undefined) {
+    constructedSearchTerm = "%%";
+  } else {
+    constructedSearchTerm = `%${searchTerm}%`;
+  }
+  db.query(searchUsers, [constructedSearchTerm, order])
     .then((dbRes) => {
-      // console.log(dbRes);
+      console.log(dbRes);
       res.json(dbRes);
     })
     .catch((err) => {
