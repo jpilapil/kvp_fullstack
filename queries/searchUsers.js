@@ -1,13 +1,13 @@
 // search for users based on input
-module.exports = function searchUsers(search_term, order) {
-  return `
+const searchUsers = `
    SELECT 
       *
    FROM
       users
    WHERE
-      handle LIKE '%${search_term}%'
+      handle LIKE ?
    ORDER BY
-      ${order};
+      ?;
    `;
-};
+
+module.exports = searchUsers;

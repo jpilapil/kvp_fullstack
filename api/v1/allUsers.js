@@ -9,9 +9,12 @@ const searchUsers = require("../../queries/searchUsers");
 // @access     PUBLIC
 
 router.get("/", (req, res) => {
-  db.query(searchUsers("a", "`handle` ASC"))
+  console.log(req.query);
+  const { searchTerm, order } = req.query;
+
+  db.query(searchUsers, [searchTerm, order])
     .then((dbRes) => {
-      console.log(dbRes);
+      // console.log(dbRes);
       res.json(dbRes);
     })
     .catch((err) => {
