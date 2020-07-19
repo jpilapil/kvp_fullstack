@@ -43,37 +43,27 @@ class Connect extends React.Component {
       });
 
     // get all local users
-    axios
-      .get(
-        "https://raw.githubusercontent.com/jpilapil/key-value-pair/master/src/mock-data/users.json"
-      )
-      .then((res) => {
+    axios.get("/api/v1/allUsers").then((res) => {
+      // handle success
+      const users = res.data;
+      this.setState({
+        displayedUsers: users,
+      });
+    });
+  }
+
+  getMatchedUsers() {
+    if (this.state.order === '[["handle", "asc"]]') {
+      axios.get("/api/v1/allUsers").then((res) => {
         // handle success
         const users = res.data;
         this.setState({
           displayedUsers: users,
         });
       });
-  }
-
-  getMatchedUsers() {
-    if (this.state.order === '[["handle", "asc"]]') {
-      axios
-        .get(
-          "https://raw.githubusercontent.com/jpilapil/key-value-pair/master/src/mock-data/users.json"
-        )
-        .then((res) => {
-          // handle success
-          const users = res.data;
-          this.setState({
-            displayedUsers: users,
-          });
-        });
     } else {
       axios
-        .get(
-          "https://raw.githubusercontent.com/jpilapil/key-value-pair/master/src/mock-data/users.json"
-        )
+        .get("/api/v1/allUsers")
         .then((res) => {
           // handle success
           const users = res.data;
