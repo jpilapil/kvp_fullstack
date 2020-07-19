@@ -43,7 +43,7 @@ class Connect extends React.Component {
       });
 
     // get all local users
-    axios.get("/api/v1/allUsers").then((res) => {
+    axios.get("/api/v1/all-users").then((res) => {
       // handle success
       const users = res.data;
       this.setState({
@@ -54,7 +54,7 @@ class Connect extends React.Component {
 
   getMatchedUsers() {
     if (this.state.order === '[["handle", "asc"]]') {
-      axios.get("/api/v1/allUsers").then((res) => {
+      axios.get("/api/v1/all-users").then((res) => {
         // handle success
         const users = res.data;
         this.setState({
@@ -63,7 +63,7 @@ class Connect extends React.Component {
       });
     } else {
       axios
-        .get("/api/v1/allUsers")
+        .get("/api/v1/all-users")
         .then((res) => {
           // handle success
           const users = res.data;

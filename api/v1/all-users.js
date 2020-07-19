@@ -3,8 +3,9 @@ const express = require("express");
 const router = express.Router();
 const db = require("../../db");
 const searchUsers = require("../../queries/searchUsers");
+// const { toJson, toSafeParse } = require("../../utils/helpers");
 
-// @route      GET api/v1/allUsers
+// @route      GET api/v1/all-users
 // @desc       GET all users by search term and order
 // @access     PUBLIC
 
