@@ -1,0 +1,187 @@
+// BAKCGROUND
+body {
+  background-color: $background;
+}
+
+.kvp-icon {
+  width: 250px;
+}
+
+// FA ICON
+.fa-icon {
+  font-size: 4rem;
+  color: $light;
+}
+
+.fa-search {
+  font-size: 1.5rem;
+  color: $light;
+}
+
+// LABEL
+// for male/female/rather not say
+.form-check-label {
+  font-size: 15px;
+}
+
+// TEXT
+.text-brand {
+  font-family: $font-family-brand;
+}
+
+p {
+  color: $light;
+}
+
+// BUTTONS
+
+// .btn-link {
+//   font-weight: $font-weight-bold;
+//   color: $gray-500;
+//   padding-left: 0;
+//   padding-right: 0;
+//   border: 0;
+// }
+
+.btn-group .btn {
+  font-weight: $font-weight-normal;
+}
+
+.navigation-button {
+  font-weight: $font-weight-normal;
+  border-radius: 0;
+}
+.navigation-button:hover {
+  background-color: $lighterbackground;
+}
+
+// TABS
+// .tab-separator {
+//   border-left: 1px $gray-800 solid;
+// }
+
+.tab-active {
+  background-color: $lighterbackground;
+}
+
+// CARDS
+// .card {
+//   border: 1px solid $comment;
+// }
+
+.card-body {
+  font-family: $font-family-serif;
+  font-size: $font-size-base;
+}
+
+.card.bg-primary {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.card.bg-secondary {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.card-title {
+  color: $plain;
+}
+
+.card-text-landing {
+  font-size: $font-size-base;
+  margin-bottom: 1rem;
+}
+.sign-up-text {
+  font-size: $font-size-base;
+  margin-bottom: 1rem;
+}
+
+textarea {
+  width: 100%;
+  background-color: transparent;
+
+  border: none;
+  overflow: auto;
+  outline: none;
+
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+
+  resize: none; /*remove the resize handle on the bottom right*/
+}
+
+input {
+  border: none;
+  overflow: auto;
+  outline: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+// .input-outline {
+//    border: 2px solid $gray;
+// }
+
+#login-button {
+  float: right;
+  background-color: $tertiary;
+}
+
+// fixes card padding issue on login page
+#inside-card {
+  padding: 1rem;
+  margin-top: 2rem;
+}
+
+// CUES
+.bg-success,
+.bg-danger p.lead {
+  color: $white;
+}
+
+#landing-brand {
+  padding-top: 5rem;
+  // padding-left: 5rem;
+}
+
+.logo-text {
+  // padding-left: 1rem;
+  font-family: $font-family-brand;
+}
+
+// fixes the double arrows on select tab
+.custom-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+// character $danger color
+.counter-color {
+  color: $danger;
+}
+
+// error messages
+
+.invalidPasswordFeedback,
+.invalidEmailFeedback {
+  color: $danger;
+  font-size: $font-size-base;
+}
+
+#searchInput {
+  background-color: $background;
+  border: none;
+  border-bottom: 1px solid $light;
+  border-radius: 0;
+  color: $light;
+}
+
+#searchFilter {
+  background-color: $lighterbackground;
+  border-color: $lighterbackground;
+  color: $light;
+}

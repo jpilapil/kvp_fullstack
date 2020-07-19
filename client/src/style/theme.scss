@@ -1,0 +1,226 @@
+// COLORS
+
+// One Dark Colors---
+// Default
+$plain: #abb2bf;
+// Background
+$background: #282c34;
+// Caret
+$caret: #528bff;
+// Function params
+$pink: #e06c75;
+// Class name Identifiers,
+$cyan: #56b6c2;
+// String
+$lime: #98c379;
+// Keywords
+$purple: #c678dd;
+// Numbers, Constants, Markup attributes
+$brown: #d19a66;
+// Class name, Namespaces
+$gold: #e5c07b;
+// Method definitions, Function names
+$blue: #61afef;
+// Comments
+$comment: #5c6370;
+// lighter background shade
+$lighterbackground: #333842;
+// lightest option
+$gray-050: #e5e6e8;
+
+$primary: $caret;
+$secondary: $gold;
+$tertiary: $cyan;
+$quaternary: $purple;
+$success: $lime;
+$danger: $pink;
+$light: $plain;
+$lighter: $lighterbackground;
+$lightest: $gray-050;
+$dark: $comment;
+
+$theme-colors: ();
+$theme-colors: map-merge(
+  (
+    "primary": $primary,
+    "secondary": $secondary,
+    "tertiary": $tertiary,
+    "quaternary": $quaternary,
+    "success": $success,
+    "danger": $danger,
+    "light": $light,
+    "lighter": $lighter,
+    "lightest": $lightest,
+    "dark": $dark,
+  ),
+  $theme-colors
+);
+
+// SPACING
+
+$spacer: 1rem; // 16px
+$spacers: ();
+$spacers: map-merge(
+  (
+    0: 0px,
+    1: 4px,
+    2: 8px,
+    3: 12px,
+    4: 16px,
+    5: 24px,
+    6: 32px,
+    7: 48px,
+    8: 64px,
+    9: 128px,
+  ),
+  $spacers
+);
+
+// FONTS
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap");
+
+$font-family-sans-serif: "Roboto Mono", monospace, sans-serif,
+  "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+$font-family-serif: "Roboto Mono", monospace, serif;
+$font-family-brand: "Roboto Mono", monospace, sans-serif;
+
+$enable-responsive-font-sizes: true;
+
+$input-btn-font-family: $font-family-sans-serif;
+$btn-font-family: $input-btn-font-family;
+$input-font-family: $input-btn-font-family;
+
+$font-weight-normal: 400;
+$font-weight-bold: 700;
+
+$font-size-base: 1rem;
+$line-height-base: 1.5;
+
+$h1-font-size: 60px;
+$h2-font-size: 48px;
+$h3-font-size: 36px;
+$h4-font-size: 24px;
+$h5-font-size: 24px;
+$h6-font-size: 16px;
+$headings-font-family: $font-family-brand;
+
+$lead-font-size: 20px;
+$lead-font-weight: 400;
+
+$text-muted: $comment;
+
+$lead-font-size: $font-size-base * 1.25;
+$lead-font-weight: $font-weight-normal;
+
+// LINKS
+
+$link-color: theme-color("primary");
+$link-decoration: none;
+$link-hover-color: darken($link-color, 15%);
+$link-hover-decoration: underline;
+// Darken percentage for links with `.text-*` class (e.g. `.text-success`)
+$emphasized-link-hover-darken-percentage: 15%;
+
+// BORDERS
+
+$border-width: 2px;
+$input-btn-border-width: $border-width;
+$btn-border-width: $border-width;
+
+$border-color: $gray-600;
+
+$border-radius: 4px;
+$border-radius-lg: $border-radius;
+$border-radius-sm: $border-radius;
+
+// BUTTONS AND INPUTS
+
+$input-btn-padding-y: map-get($spacers, 2);
+$input-btn-padding-x: map-get($spacers, 4);
+$input-btn-font-size: $font-size-base;
+$input-btn-line-height: $line-height-base;
+
+$input-btn-padding-y-sm: map-get($spacers, 2);
+$input-btn-padding-x-sm: map-get($spacers, 5);
+$input-btn-font-size-sm: $font-size-base;
+$input-btn-line-height-sm: $line-height-base;
+
+$input-btn-padding-y-lg: map-get($spacers, 2);
+$input-btn-padding-x-lg: map-get($spacers, 6);
+$input-btn-font-size-lg: $font-size-base;
+$input-btn-line-height-lg: $line-height-base;
+
+// BUTTONS
+
+$btn-font-weight: $font-weight-bold;
+
+$btn-padding-y: $input-btn-padding-y;
+$btn-padding-x: $input-btn-padding-x;
+$btn-font-size: $font-size-base;
+$btn-line-height: $line-height-base;
+
+$btn-padding-y-sm: $input-btn-padding-y-sm;
+$btn-padding-x-sm: $input-btn-padding-x-sm;
+$btn-font-size-sm: $font-size-base;
+$btn-line-height-sm: $line-height-base;
+
+$btn-padding-y-lg: $input-btn-padding-y-lg;
+$btn-padding-x-lg: $input-btn-padding-x-lg;
+$btn-font-size-lg: $font-size-base;
+$btn-line-height-lg: $line-height-base;
+
+$component-active-color: $white;
+$component-active-bg: theme-color("primary");
+$custom-control-indicator-checked-color: $component-active-color;
+$custom-control-indicator-checked-bg: $component-active-bg;
+
+$custom-control-indicator-checked-border-color: $custom-control-indicator-checked-bg;
+
+// INPUTS
+
+$input-bg: $gray-050;
+$input-focus-box-shadow: none;
+
+$input-padding-y: $input-btn-padding-y;
+$input-padding-x: $input-btn-padding-x;
+$input-font-size: $font-size-base;
+$input-line-height: $line-height-base;
+
+$input-padding-y-sm: $input-btn-padding-y-sm;
+$input-padding-x-sm: $input-btn-padding-x-sm;
+$input-font-size-sm: $font-size-base;
+$input-line-height-sm: $line-height-base;
+
+$input-padding-y-lg: $input-btn-padding-y-lg;
+$input-padding-x-lg: $input-btn-padding-x-lg;
+$input-font-size-lg: $font-size-base;
+$input-line-height-lg: $line-height-base;
+
+// FORMS
+
+$form-validation-states: ();
+// stylelint-disable-next-line scss/dollar-variable-default
+$form-validation-states: map-merge(
+  (
+    "valid": (
+      "color": $success,
+      "icon": $form-feedback-icon-valid,
+    ),
+    "invalid": (
+      "color": $danger,
+      "icon": $form-feedback-icon-invalid,
+    ),
+  ),
+  $form-validation-states
+);
+
+// CARDS
+
+$card-border-width: 0;
+$card-spacer-y: map-get($spacers, 4);
+$card-spacer-x: map-get($spacers, 4);
+$card-bg: $lighterbackground;
+
+// CUES
+$paragraph-margin-bottom: 0;

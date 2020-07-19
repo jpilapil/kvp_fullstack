@@ -1,0 +1,26 @@
+{
+  "id": "be942039-6a59-46a4-9f92-1f7808b20c2f",
+  "handle": "justin",
+  "email": "justin@gmail.com",
+  "password": "3B0C836BED068ACA52DF182F53E169CE",
+  "gender": "male",
+  "createdAt": 1593894227232,
+  "rating": 5,
+  "techInterestedIn": [
+    {
+      "name": "JavaScript",
+      "popularity": 60,
+      "id": 1
+    },
+    {
+      "name": "C#",
+      "popularity": 50,
+      "id": 19
+    },
+    {
+      "name": "C++",
+      "popularity": 50,
+      "id": 20
+    }
+  ]
+}
