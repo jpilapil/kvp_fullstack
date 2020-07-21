@@ -63,7 +63,9 @@ class Connect extends React.Component {
       });
     } else {
       axios
-        .get("/api/v1/all-users")
+        .get(
+          "https://raw.githubusercontent.com/jpilapil/key-value-pair/master/src/mock-data/user.json"
+        )
         .then((res) => {
           // handle success
           const users = res.data;
@@ -214,6 +216,7 @@ class Connect extends React.Component {
                     techInterestedIn={user.techInterestedIn}
                     createdAt={user.createdAt}
                     key={user.id}
+                    users={this.state.displayedUsers}
                   />
                 );
               })}
