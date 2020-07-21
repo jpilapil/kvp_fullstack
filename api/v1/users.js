@@ -2,7 +2,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../../db");
-const allUsers = require("../../queries/selectUser");
+const allUsers = require("../../queries/allUsers");
 // const { toJson, toSafeParse } = require("../../utils/helpers");
 
 // @route      GET api/v1/users
