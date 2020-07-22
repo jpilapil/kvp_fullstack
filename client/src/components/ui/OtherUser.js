@@ -5,18 +5,7 @@ import { connect } from "react-redux";
 
 class OtherUser extends React.Component {
   render() {
-    // map through techInterestedIn, return value of "name" key
-    const usersWithFormattedTech = this.props.users.map((user) => {
-      // TODO add comma if there are more technologies listed
-      // add period if tech.name is last in list
-      // slice?
-      return user.technologyName + ", ";
-    });
-
-    // console.log(interestedTech); array of strings
-
     console.log(this.props.users);
-
     return (
       <div className="  col-10 offset-1  col-xl-6 offset-xl-0 col-lg-8 offset-lg-2  my-4">
         <div className="card card-body">
@@ -24,10 +13,20 @@ class OtherUser extends React.Component {
           <p className="text-light mt-3">
             Technologies {this.props.handle} is interested in:
           </p>
-          <p className="text-lightest mt-1"> - {usersWithFormattedTech}</p>
+
+          {this.props.techInterestedIn.map((tech) => {
+            // TODO add comma if there are more technologies listed
+            // add period if tech.name is last in list
+            // slice?
+            return (
+              <span key={`technology-${tech}`} className="text-lightest mt-1">
+                {"- " + tech}
+              </span>
+            );
+          })}
           <p className="text-light mt-3">Member since:</p>
           <p className="text-lightest mt-1">
-            - {toDisplayDate(this.props.createdAt, "MMMM do, y")}
+            {toDisplayDate(this.props.createdAt, "MMMM do, y")}
           </p>
 
           <button className="btn btn-tertiary ml-auto">Contact</button>

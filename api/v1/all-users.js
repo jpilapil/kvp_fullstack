@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 const db = require("../../db");
 const searchUsers = require("../../queries/searchUsers");
-const allUsers = require("../../queries/allUsers");
+
 // const { toJson, toSafeParse } = require("../../utils/helpers");
 
 // @route      GET api/v1/all-users

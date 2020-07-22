@@ -45,20 +45,55 @@ class Connect extends React.Component {
     // get all local users
     axios.get("/api/v1/all-users").then((res) => {
       // handle success
-      const users = res.data;
-      this.setState({
-        displayedUsers: users,
+      const userTechnologies = res.data;
+      console.log("this is user tech: ", userTechnologies);
+      axios.get("/api/v1/users").then((res2) => {
+        const users = res2.data.map((user) => {
+          return {
+            id: user.id,
+            handle: user.handle,
+            createdAt: user.created_at,
+            technologies: userTechnologies
+              .filter((technology) => technology.userId === user.id)
+              .map((tech) => tech.technologyName),
+          };
+        });
+        console.log(users);
+        this.setState({
+          displayedUsers: users,
+        });
       });
     });
   }
 
   getMatchedUsers() {
     if (this.state.order === '[["handle", "asc"]]') {
+      // axios.get("/api/v1/all-users").then((res) => {
+      //   // handle success
+      //   const users = res.data;
+      //   this.setState({
+      //     displayedUsers: users,
+      //   });
+      // });
       axios.get("/api/v1/all-users").then((res) => {
         // handle success
-        const users = res.data;
-        this.setState({
-          displayedUsers: users,
+        const userTechnologies = res.data;
+        // console.log("this is user tech: ", userTechnologies);
+        axios.get("/api/v1/users").then((res2) => {
+          const users = res2.data.map((user) => {
+            return {
+              id: user.id,
+              handle: user.handle,
+              createdAt: user.created_at,
+              technologies: userTechnologies
+                .filter((technology) => technology.userId === user.id)
+                .map((tech) => tech.technologyName),
+            };
+          });
+          console.log(users);
+          this.setState({
+            displayedUsers: users,
+          });
         });
       });
     } else {
@@ -67,42 +102,54 @@ class Connect extends React.Component {
           "https://raw.githubusercontent.com/jpilapil/key-value-pair/master/src/mock-data/user.json"
         )
         .then((res) => {
-          // handle success
-          const users = res.data;
-          //  - get tech interest from redux store
-          console.log(this.props.currentUser);
-          const currentUserTechIds = this.props.currentUser.techInterestedIn.map(
-            (tech) => tech.id
-          );
-          console.log("this is your tech: ", currentUserTechIds); // returns array of strings
+          const currentUserTech = res.data;
+          console.log("this is currentUserTech: ", currentUserTech);
+        });
 
-          //  - filter all local users to include any user with a tech interest match
-          const filteredUsers = [];
-          currentUserTechIds.forEach((currentUserTechId) => {
-            users.forEach((user) => {
-              user.techInterestedIn.forEach((tech) => {
-                // console.log(user);
-                if (tech.id === currentUserTechId) {
-                  // return multiple copies of users with the same tech id
-                  filteredUsers.push(user);
-                }
+      axios
+        .get("/api/v1/all-users")
+        .then((res) => {
+          const allUserTechnologies = res.data;
+          console.log("this is all user tech: ", allUserTechnologies);
+          axios.get("/api/v1/users").then((res2) => {
+            const users = res2.data.map((user) => {
+              return {
+                id: user.id,
+                handle: user.handle,
+                createdAt: user.created_at,
+                technologies: allUserTechnologies
+                  .filter((technology) => technology.userId === user.id)
+                  .map((tech) => tech.technologyName),
+              };
+            });
+
+            console.log("this is local users were working with: ", users);
+            const currentUserTechNames = this.props.currentUser.techInterestedIn.map(
+              (tech) => tech.name
+            );
+            console.log("currentUserTechNames: ", currentUserTechNames);
+            const filteredUsers = [];
+            currentUserTechNames.forEach((currentUserTechName) => {
+              users.forEach((user) => {
+                user.technologies.forEach((techName) => {
+                  // console.log(user);
+                  if (techName === currentUserTechName) {
+                    // return multiple copies of users with the same tech name
+                    filteredUsers.push(user);
+                  }
+                });
               });
             });
+            // console.log(users);
+            const bestMatchedUsers = filteredUsers;
+            //  - set displayed users state to filtered users
+            /* TODO order filteredUsers by most common tech interests, count how often someone is matched, order by number of times matches, most = highest, less = lowest. map through filteredUsers, get each user. if user shows up multiple times, push to top of list */
+
+            this.setState({
+              displayedUsers: [...new Set(bestMatchedUsers)],
+            });
           });
-          // console.log(filteredUsers);
-
-          const bestMatchedUsers = filteredUsers;
-
-          /* TODO order filteredUsers by most common tech interests, count how often someone is matched, order by number of times matches, most = highest, less = lowest. map through filteredUsers, get each user. if user shows up multiple times, push to top of list */
-
-          //  - set displayed users state to filtered users
-          this.setState({
-            displayedUsers: [...new Set(bestMatchedUsers)],
-          });
-          // displays users multiple times, use new set
-          // this.setState({ displayedUsers: bestMatchedUsers });
         })
-
         .catch((error) => {
           // handle error
           console.log(error);
@@ -213,7 +260,7 @@ class Connect extends React.Component {
                 return (
                   <OtherUser
                     handle={user.handle}
-                    techInterestedIn={user.techInterestedIn}
+                    techInterestedIn={user.technologies}
                     createdAt={user.createdAt}
                     key={user.id}
                     users={this.state.displayedUsers}
