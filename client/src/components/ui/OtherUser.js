@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 class OtherUser extends React.Component {
   render() {
-    console.log(this.props.users);
+    console.log("this is the email: ", this.props.handle);
     return (
       <div className="  col-10 offset-1  col-xl-6 offset-xl-0 col-lg-8 offset-lg-2  my-4">
         <div className="card card-body">
@@ -29,7 +29,12 @@ class OtherUser extends React.Component {
             {toDisplayDate(this.props.createdAt, "MMMM do, y")}
           </p>
 
-          <button className="btn btn-tertiary ml-auto">Contact</button>
+          <a
+            href={`mailto:${this.props.email}?subject=Let's collaborate!`}
+            className="btn btn-tertiary ml-auto"
+          >
+            Contact
+          </a>
         </div>
       </div>
     );

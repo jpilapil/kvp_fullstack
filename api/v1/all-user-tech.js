@@ -34,7 +34,7 @@ router.get("/", (req, res) => {
           popularity: user.popularity,
         };
       });
-      console.log(camelCasedUsers);
+      // console.log(camelCasedUsers);
       res.json(camelCasedUsers);
     })
     .catch((err) => {

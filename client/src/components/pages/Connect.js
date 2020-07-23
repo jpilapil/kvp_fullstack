@@ -52,6 +52,7 @@ class Connect extends React.Component {
           return {
             id: user.id,
             handle: user.handle,
+            email: user.email,
             createdAt: user.created_at,
             technologies: userTechnologies
               .filter((technology) => technology.userId === user.id)
@@ -116,6 +117,7 @@ class Connect extends React.Component {
               return {
                 id: user.id,
                 handle: user.handle,
+                email: user.email,
                 createdAt: user.created_at,
                 technologies: allUserTechnologies
                   .filter((technology) => technology.userId === user.id)
@@ -170,11 +172,9 @@ class Connect extends React.Component {
         return true;
       } else return false;
     });
-    this.setState({ displayedUsers: filteredUsers }, () => {
-      // this.setUsers();
-    });
+    this.setState({ displayedUsers: filteredUsers });
     // if (input === "") {
-    //   this.setState({ displayedUsers: users });
+    //   this.setState({ displayedUsers: filteredUsers });
     // }
   }
 
@@ -262,6 +262,7 @@ class Connect extends React.Component {
                     handle={user.handle}
                     techInterestedIn={user.technologies}
                     createdAt={user.createdAt}
+                    email={user.email}
                     key={user.id}
                     users={this.state.displayedUsers}
                   />
