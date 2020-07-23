@@ -2,7 +2,7 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../../db");
-const searchUsers = require("../../queries/searchUsers");
+const allUserTech = require("../../queries/allUserTech");
 
 // const { toJson, toSafeParse } = require("../../utils/helpers");
 
@@ -19,7 +19,7 @@ router.get("/", (req, res) => {
   } else {
     constructedSearchTerm = `%${searchTerm}%`;
   }
-  db.query(searchUsers)
+  db.query(allUserTech)
     .then((allUsers) => {
       const camelCasedUsers = allUsers.map((user) => {
         return {

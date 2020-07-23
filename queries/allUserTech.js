@@ -12,7 +12,7 @@
 //     `
 //    ;
 
-const searchUsers = `
+const allUserTech = `
 SELECT
     users.id AS user_id,
     users.handle,
@@ -33,4 +33,4 @@ FROM
    technologies ON technologies.id = xref_user_technologies.technology_id;
    `;
 
-module.exports = searchUsers;
+module.exports = allUserTech;
