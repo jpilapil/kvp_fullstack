@@ -6,7 +6,7 @@ const allUserTech = require("../../queries/allUserTech");
 
 // const { toJson, toSafeParse } = require("../../utils/helpers");
 
-// @route      GET api/v1/all-users
+// @route      GET api/v1/all-user-tech
 // @desc       GET all users by search term and order
 // @access     PUBLIC
 

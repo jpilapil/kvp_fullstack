@@ -43,7 +43,7 @@ class Connect extends React.Component {
       });
 
     // get all local users
-    axios.get("/api/v1/all-users").then((res) => {
+    axios.get("/api/v1/all-user-tech").then((res) => {
       // handle success
       const userTechnologies = res.data;
       console.log("this is user tech: ", userTechnologies);
@@ -68,14 +68,14 @@ class Connect extends React.Component {
 
   getMatchedUsers() {
     if (this.state.order === '[["handle", "asc"]]') {
-      // axios.get("/api/v1/all-users").then((res) => {
+      // axios.get("/api/v1/all-user-tech").then((res) => {
       //   // handle success
       //   const users = res.data;
       //   this.setState({
       //     displayedUsers: users,
       //   });
       // });
-      axios.get("/api/v1/all-users").then((res) => {
+      axios.get("/api/v1/all-user-tech").then((res) => {
         // handle success
         const userTechnologies = res.data;
         // console.log("this is user tech: ", userTechnologies);
@@ -107,7 +107,7 @@ class Connect extends React.Component {
         });
 
       axios
-        .get("/api/v1/all-users")
+        .get("/api/v1/all-user-tech")
         .then((res) => {
           const allUserTechnologies = res.data;
           console.log("this is all user tech: ", allUserTechnologies);
