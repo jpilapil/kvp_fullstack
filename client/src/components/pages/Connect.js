@@ -2,6 +2,7 @@ import React from "react";
 import AppTemplate from "../ui/AppTemplate";
 import OtherUser from "../ui/OtherUser";
 import orderBy from "lodash/orderBy";
+import countBy from "lodash/countBy";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
@@ -143,12 +144,20 @@ class Connect extends React.Component {
               });
             });
             // console.log(users);
-            const bestMatchedUsers = filteredUsers;
+            // const bestMatchedUsers = filteredUsers;
+            // console.log("hi: ", filteredUsers);
+            const bestMatchedUsers = [];
+
             //  - set displayed users state to filtered users
             /* TODO order filteredUsers by most common tech interests, count how often someone is matched, order by number of times matches, most = highest, less = lowest. map through filteredUsers, get each user. if user shows up multiple times, push to top of list */
 
+            const bestMatched = countBy(filteredUsers, "handle");
+            const bestMatched2 = orderBy(bestMatched, ["num"], ["asc"]); // orderby filtered users first?????
+
+            console.log("this is filtered users: ", bestMatched2);
+
             this.setState({
-              displayedUsers: [...new Set(bestMatchedUsers)],
+              displayedUsers: [...new Set(filteredUsers)],
             });
           });
         })
