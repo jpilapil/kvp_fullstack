@@ -146,15 +146,17 @@ class Connect extends React.Component {
             // console.log(users);
             // const bestMatchedUsers = filteredUsers;
             // console.log("hi: ", filteredUsers);
-            const bestMatchedUsers = [];
+            // const bestMatchedUsers = [];
 
             //  - set displayed users state to filtered users
             /* TODO order filteredUsers by most common tech interests, count how often someone is matched, order by number of times matches, most = highest, less = lowest. map through filteredUsers, get each user. if user shows up multiple times, push to top of list */
 
             const bestMatched = countBy(filteredUsers, "handle");
-            const bestMatched2 = orderBy(bestMatched, ["num"], ["asc"]); // orderby filtered users first?????
+            const orderedUsers = orderBy(filteredUsers, ["handle"], ["desc"]);
+            const bestMatchedUsers = filteredUsers;
+            console.log(bestMatchedUsers);
 
-            console.log("this is filtered users: ", bestMatched2);
+            console.log("this is filtered users: ", bestMatched);
 
             this.setState({
               displayedUsers: [...new Set(filteredUsers)],
