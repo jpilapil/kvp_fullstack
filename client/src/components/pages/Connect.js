@@ -44,7 +44,7 @@ class Connect extends React.Component {
       });
 
     // get all local users
-    axios.get("/api/v1/all-user-tech").then((res) => {
+    await axios.get("/api/v1/all-user-tech").then((res) => {
       // handle success
       const userTechnologies = res.data;
       console.log("this is user tech: ", userTechnologies);
@@ -60,7 +60,7 @@ class Connect extends React.Component {
               .map((tech) => tech.technologyName),
           };
         });
-        console.log(users);
+        // console.log(users);
         this.setState({
           displayedUsers: users,
         });
@@ -86,6 +86,7 @@ class Connect extends React.Component {
             return {
               id: user.id,
               handle: user.handle,
+              email: user.email,
               createdAt: user.created_at,
               technologies: userTechnologies
                 .filter((technology) => technology.userId === user.id)

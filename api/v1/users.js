@@ -12,7 +12,7 @@ const { toJson, toSafeParse } = require("../../utils/helpers");
 router.get("/", (req, res) => {
   db.query(allUsers)
     .then((dbRes) => {
-      const users = dbRes; // get response and turn it into json, then parse json to convert to array
+      const users = toSafeParse(toJson(dbRes)); // get response and turn it into json, then parse json to convert to array
       console.log(users);
       res.json(users);
     })
