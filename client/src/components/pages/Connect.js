@@ -25,7 +25,7 @@ class Connect extends React.Component {
   async componentDidMount() {
     // componentDidMount is a lifecycle method, does not need to be called somewhere else, will always run before render
 
-    // get user signed in
+    // get signed in user from redux store
     await axios
       .get(
         "https://raw.githubusercontent.com/jpilapil/key-value-pair/master/src/mock-data/user.json"
@@ -43,8 +43,8 @@ class Connect extends React.Component {
         console.log(error);
       });
 
-    // get all local users
-    await axios.get("/api/v1/all-user-tech").then((res) => {
+    // get all users with technology names and set them do displayedUsers state
+    axios.get("/api/v1/all-user-tech").then((res) => {
       // handle success
       const userTechnologies = res.data;
       console.log("this is user tech: ", userTechnologies);
