@@ -22,11 +22,11 @@ class Connect extends React.Component {
     };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     // componentDidMount is a lifecycle method, does not need to be called somewhere else, will always run before render
 
     // get signed in user from redux store
-    await axios
+    axios
       .get(
         "https://raw.githubusercontent.com/jpilapil/key-value-pair/master/src/mock-data/user.json"
       )
