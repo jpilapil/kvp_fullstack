@@ -66,6 +66,7 @@ class Connect extends React.Component {
             });
             // console.log(users);
             this.setState({
+              allUsers: users,
               displayedUsers: users,
             });
           })
@@ -82,41 +83,44 @@ class Connect extends React.Component {
 
   getMatchedUsers() {
     if (this.state.order === '[["handle", "asc"]]') {
+      this.setState({
+        displayedUsers: this.state.allUsers,
+      });
       // [handle, asc] = all users
-      axios
-        .get("/api/v1/all-user-tech")
-        .then((res) => {
-          // handle success
-          const userTechnologies = res.data;
-          // console.log("this is user tech: ", userTechnologies);
-          axios
-            .get("/api/v1/users")
-            .then((res2) => {
-              const users = res2.data.map((user) => {
-                return {
-                  id: user.id,
-                  handle: user.handle,
-                  email: user.email,
-                  createdAt: user.created_at,
-                  technologies: userTechnologies
-                    .filter((technology) => technology.userId === user.id)
-                    .map((tech) => tech.technologyName),
-                };
-              });
-              console.log(users);
-              this.setState({
-                displayedUsers: users,
-              });
-            })
-            .catch((error) => {
-              // handle error
-              console.log(error);
-            });
-        })
-        .catch((error) => {
-          // handle error
-          console.log(error);
-        });
+      // axios
+      //   .get("/api/v1/all-user-tech")
+      //   .then((res) => {
+      //     // handle success
+      //     const userTechnologies = res.data;
+      //     // console.log("this is user tech: ", userTechnologies);
+      //     axios
+      //       .get("/api/v1/users")
+      //       .then((res2) => {
+      //         const users = res2.data.map((user) => {
+      //           return {
+      //             id: user.id,
+      //             handle: user.handle,
+      //             email: user.email,
+      //             createdAt: user.created_at,
+      //             technologies: userTechnologies
+      //               .filter((technology) => technology.userId === user.id)
+      //               .map((tech) => tech.technologyName),
+      //           };
+      //         });
+      //         console.log(users);
+      //         this.setState({
+      //           displayedUsers: users,
+      //         });
+      //       })
+      //       .catch((error) => {
+      //         // handle error
+      //         console.log(error);
+      //       });
+      //   })
+      //   .catch((error) => {
+      //     // handle error
+      //     console.log(error);
+      //   });
     } else {
       console.log(
         "this is local users were working with: ",
