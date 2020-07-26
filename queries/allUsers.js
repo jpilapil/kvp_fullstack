@@ -3,7 +3,6 @@ const allUsers = `
       *
    FROM
       users
-   
     `;
 
 module.exports = allUsers;

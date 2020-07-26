@@ -230,6 +230,7 @@ class Connect extends React.Component {
   }
 }
 
+// grant access to redux store, use this.props!
 function mapStateToProps(state) {
   return {
     currentUser: state.currentUser,
