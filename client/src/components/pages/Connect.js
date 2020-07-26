@@ -48,7 +48,7 @@ class Connect extends React.Component {
       .get("/api/v1/all-user-tech")
       .then((res) => {
         // handle success
-        const userTechnologies = res.data;
+        let userTechnologies = res.data;
         console.log("this is user tech: ", userTechnologies);
         axios
           .get("/api/v1/users")
@@ -82,13 +82,7 @@ class Connect extends React.Component {
 
   getMatchedUsers() {
     if (this.state.order === '[["handle", "asc"]]') {
-      // axios.get("/api/v1/all-user-tech").then((res) => {
-      //   // handle success
-      //   const users = res.data;
-      //   this.setState({
-      //     displayedUsers: users,
-      //   });
-      // });
+      // [handle, asc] = all users
       axios
         .get("/api/v1/all-user-tech")
         .then((res) => {
@@ -124,18 +118,18 @@ class Connect extends React.Component {
           console.log(error);
         });
     } else {
-      axios
-        .get(
-          "https://raw.githubusercontent.com/jpilapil/key-value-pair/master/src/mock-data/user.json"
-        )
-        .then((res) => {
-          const currentUserTech = res.data;
-          console.log("this is currentUserTech: ", currentUserTech);
-        })
-        .catch((error) => {
-          // handle error
-          console.log(error);
-        });
+      // axios
+      //   .get(
+      //     "https://raw.githubusercontent.com/jpilapil/key-value-pair/master/src/mock-data/user.json"
+      //   )
+      //   .then((res) => {
+      //     const currentUserTech = res.data;
+      //     console.log("this is currentUserTech: ", currentUserTech);
+      //   })
+      //   .catch((error) => {
+      //     // handle error
+      //     console.log(error);
+      //   });
 
       axios
         .get("/api/v1/all-user-tech")
@@ -176,7 +170,7 @@ class Connect extends React.Component {
               });
               // console.log(users);
               // const bestMatchedUsers = filteredUsers;
-              // console.log("hi: ", filteredUsers);
+              // console.log("testing: ", filteredUsers);
               // const bestMatchedUsers = [];
 
               //  - set displayed users state to filtered users
