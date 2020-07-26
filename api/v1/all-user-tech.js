@@ -11,14 +11,6 @@ const allUserTech = require("../../queries/allUserTech");
 // @access     PUBLIC
 
 router.get("/", (req, res) => {
-  console.log(req.query);
-  const { searchTerm, order } = req.query;
-  let constructedSearchTerm;
-  if (searchTerm === "" || searchTerm === undefined) {
-    constructedSearchTerm = "%%";
-  } else {
-    constructedSearchTerm = `%${searchTerm}%`;
-  }
   db.query(allUserTech)
     .then((allUsers) => {
       const camelCasedUsers = allUsers.map((user) => {
@@ -34,7 +26,7 @@ router.get("/", (req, res) => {
           popularity: user.popularity,
         };
       });
-      // console.log(camelCasedUsers);
+      // console.log("camel cased users: ", camelCasedUsers);
       res.json(camelCasedUsers);
     })
     .catch((err) => {

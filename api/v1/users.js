@@ -10,6 +10,7 @@ const { toJson, toSafeParse } = require("../../utils/helpers");
 // @access     PUBLIC
 
 router.get("/", (req, res) => {
+  // console.log(req.query);
   db.query(allUsers)
     .then((dbRes) => {
       const users = toSafeParse(toJson(dbRes)); // get response and turn it into json, then parse json to convert to array
