@@ -118,40 +118,10 @@ class Connect extends React.Component {
           console.log(error);
         });
     } else {
-      // axios
-      //   .get(
-      //     "https://raw.githubusercontent.com/jpilapil/key-value-pair/master/src/mock-data/user.json"
-      //   )
-      //   .then((res) => {
-      //     const currentUserTech = res.data;
-      //     console.log("this is currentUserTech: ", currentUserTech);
-      //   })
-      //   .catch((error) => {
-      //     // handle error
-      //     console.log(error);
-      //   });
-
-      // axios
-      //   .get("/api/v1/all-user-tech")
-      //   .then((res) => {
-      //     const allUserTechnologies = res.data;
-      //     console.log("this is all user tech: ", allUserTechnologies);
-      //     axios
-      //       .get("/api/v1/users")
-      //       .then((res2) => {
-      //         const users = res2.data.map((user) => {
-      //           return {
-      //             id: user.id,
-      //             handle: user.handle,
-      //             email: user.email,
-      //             createdAt: user.created_at,
-      //             technologies: allUserTechnologies
-      //               .filter((technology) => technology.userId === user.id)
-      //               .map((tech) => tech.technologyName),
-      //           };
-      //         });
-
-      // console.log("this is local users were working with: ", users);
+      console.log(
+        "this is local users were working with: ",
+        this.state.displayedUsers
+      );
       const currentUserTechNames = this.props.currentUser.techInterestedIn.map(
         (tech) => tech.name
       );
