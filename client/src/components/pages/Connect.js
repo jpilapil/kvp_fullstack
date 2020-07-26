@@ -43,85 +43,80 @@ class Connect extends React.Component {
         console.log(error);
       });
 
-    // get all users with technology names and set them do displayedUsers state
-    await axios
-      .get("/api/v1/all-user-tech")
-      .then((res) => {
-        // handle success
-        let userTechnologies = res.data;
-        console.log("this is user tech: ", userTechnologies);
-        axios
-          .get("/api/v1/users")
-          .then((res2) => {
-            const users = res2.data.map((user) => {
-              return {
-                id: user.id,
-                handle: user.handle,
-                email: user.email,
-                createdAt: user.created_at,
-                technologies: userTechnologies
-                  .filter((technology) => technology.userId === user.id)
-                  .map((tech) => tech.technologyName),
-              };
-            });
-            // console.log(users);
-            this.setState({
-              allUsers: users,
-              displayedUsers: users,
-            });
-          })
-          .catch((error) => {
-            // handle error
-            console.log(error);
+    axios
+      .all([axios.get("/api/v1/all-user-tech"), axios.get("/api/v1/users")])
+      .then(
+        axios.spread((techRes, userRes) => {
+          let userTechnologies = techRes.data;
+
+          const users = userRes.data.map((user) => {
+            return {
+              id: user.id,
+              handle: user.handle,
+              email: user.email,
+              createdAt: user.created_at,
+              technologies: userTechnologies
+                .filter((technology) => technology.userId === user.id)
+                .map((tech) => tech.technologyName),
+            };
           });
-      })
+          this.setState({
+            allUsers: users,
+            displayedUsers: users,
+          });
+        })
+      )
       .catch((error) => {
-        // handle error
         console.log(error);
       });
   }
 
+  // get all users with technology names and set them do displayedUsers state
+  // await axios
+  //   .get("/api/v1/all-user-tech")
+  //   .then((res) => {
+  //     // handle success
+  //     let userTechnologies = res.data;
+  //     console.log("this is user tech: ", userTechnologies);
+  //     axios
+  //       .get("/api/v1/users")
+  //       .then((res2) => {
+  //         const users = res2.data.map((user) => {
+  //           return {
+  //             id: user.id,
+  //             handle: user.handle,
+  //             email: user.email,
+  //             createdAt: user.created_at,
+  //             technologies: userTechnologies
+  //               .filter((technology) => technology.userId === user.id)
+  //               .map((tech) => tech.technologyName),
+  //           };
+  //         });
+  //         // console.log(users);
+  //         this.setState({
+  //           allUsers: users,
+  //           displayedUsers: users,
+  //         });
+  //       })
+  //       .catch((error) => {
+  //         // handle error
+  //         console.log(error);
+  //       });
+  //   })
+  //   .catch((error) => {
+  //     // handle error
+  //     console.log(error);
+  //   });
+  // }
+
   getMatchedUsers() {
+    // if the filter = all users, display all users
     if (this.state.order === '[["handle", "asc"]]') {
       this.setState({
         displayedUsers: this.state.allUsers,
       });
-      // [handle, asc] = all users
-      // axios
-      //   .get("/api/v1/all-user-tech")
-      //   .then((res) => {
-      //     // handle success
-      //     const userTechnologies = res.data;
-      //     // console.log("this is user tech: ", userTechnologies);
-      //     axios
-      //       .get("/api/v1/users")
-      //       .then((res2) => {
-      //         const users = res2.data.map((user) => {
-      //           return {
-      //             id: user.id,
-      //             handle: user.handle,
-      //             email: user.email,
-      //             createdAt: user.created_at,
-      //             technologies: userTechnologies
-      //               .filter((technology) => technology.userId === user.id)
-      //               .map((tech) => tech.technologyName),
-      //           };
-      //         });
-      //         console.log(users);
-      //         this.setState({
-      //           displayedUsers: users,
-      //         });
-      //       })
-      //       .catch((error) => {
-      //         // handle error
-      //         console.log(error);
-      //       });
-      //   })
-      //   .catch((error) => {
-      //     // handle error
-      //     console.log(error);
-      //   });
     } else {
+      // if filter = all matched users, set state of displayedUsers to filtered users
       console.log(
         "this is local users were working with: ",
         this.state.displayedUsers
@@ -162,17 +157,6 @@ class Connect extends React.Component {
       });
     }
   }
-  // .catch((error) => {
-  //   // handle error
-  //   console.log(error);
-  // });
-  // })
-  //     .catch((error) => {
-  //       // handle error
-  //       console.log(error);
-  //     });
-  // }
-  // }
 
   handleChange(e) {
     this.setState({ search: e.target.value });
@@ -293,6 +277,7 @@ class Connect extends React.Component {
     );
   }
 }
+
 function mapStateToProps(state) {
   return {
     currentUser: state.currentUser,
