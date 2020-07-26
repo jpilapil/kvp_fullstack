@@ -44,7 +44,7 @@ class Connect extends React.Component {
       });
 
     // get all users with technology names and set them do displayedUsers state
-    axios
+    await axios
       .get("/api/v1/all-user-tech")
       .then((res) => {
         // handle success
