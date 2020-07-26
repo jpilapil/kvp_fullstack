@@ -7,11 +7,6 @@ import { connect } from "react-redux";
 
 class Profile extends React.Component {
   render() {
-    const currentUser = this.props.currentUser.techInterestedIn.map(
-      (tech) => tech.name + ", "
-    );
-    // const filteredCurrentUser = currentUser.map((tech) => tech.name);
-    // console.log(filteredCurrentUser);
     return (
       <AppTemplate>
         <div>
@@ -30,7 +25,11 @@ class Profile extends React.Component {
                   <p className="text-light mt-3">
                     Technologies I'm interested in:
                   </p>
-                  <p className="text-lightest mt-1">{currentUser}</p>
+                  <p className="text-lightest mt-1">
+                    {this.props.currentUser.techInterestedIn.map(
+                      (tech) => tech.name + ", "
+                    )}
+                  </p>
                   <p className="text-light mt-3">Member since:</p>
                   <p className="text-lightest mt-1">
                     {toDisplayDate(
