@@ -44,28 +44,40 @@ class Connect extends React.Component {
       });
 
     // get all users with technology names and set them do displayedUsers state
-    axios.get("/api/v1/all-user-tech").then((res) => {
-      // handle success
-      const userTechnologies = res.data;
-      console.log("this is user tech: ", userTechnologies);
-      axios.get("/api/v1/users").then((res2) => {
-        const users = res2.data.map((user) => {
-          return {
-            id: user.id,
-            handle: user.handle,
-            email: user.email,
-            createdAt: user.created_at,
-            technologies: userTechnologies
-              .filter((technology) => technology.userId === user.id)
-              .map((tech) => tech.technologyName),
-          };
-        });
-        // console.log(users);
-        this.setState({
-          displayedUsers: users,
-        });
+    axios
+      .get("/api/v1/all-user-tech")
+      .then((res) => {
+        // handle success
+        const userTechnologies = res.data;
+        console.log("this is user tech: ", userTechnologies);
+        axios
+          .get("/api/v1/users")
+          .then((res2) => {
+            const users = res2.data.map((user) => {
+              return {
+                id: user.id,
+                handle: user.handle,
+                email: user.email,
+                createdAt: user.created_at,
+                technologies: userTechnologies
+                  .filter((technology) => technology.userId === user.id)
+                  .map((tech) => tech.technologyName),
+              };
+            });
+            // console.log(users);
+            this.setState({
+              displayedUsers: users,
+            });
+          })
+          .catch((error) => {
+            // handle error
+            console.log(error);
+          });
+      })
+      .catch((error) => {
+        // handle error
+        console.log(error);
       });
-    });
   }
 
   getMatchedUsers() {
@@ -77,28 +89,40 @@ class Connect extends React.Component {
       //     displayedUsers: users,
       //   });
       // });
-      axios.get("/api/v1/all-user-tech").then((res) => {
-        // handle success
-        const userTechnologies = res.data;
-        // console.log("this is user tech: ", userTechnologies);
-        axios.get("/api/v1/users").then((res2) => {
-          const users = res2.data.map((user) => {
-            return {
-              id: user.id,
-              handle: user.handle,
-              email: user.email,
-              createdAt: user.created_at,
-              technologies: userTechnologies
-                .filter((technology) => technology.userId === user.id)
-                .map((tech) => tech.technologyName),
-            };
-          });
-          console.log(users);
-          this.setState({
-            displayedUsers: users,
-          });
+      axios
+        .get("/api/v1/all-user-tech")
+        .then((res) => {
+          // handle success
+          const userTechnologies = res.data;
+          // console.log("this is user tech: ", userTechnologies);
+          axios
+            .get("/api/v1/users")
+            .then((res2) => {
+              const users = res2.data.map((user) => {
+                return {
+                  id: user.id,
+                  handle: user.handle,
+                  email: user.email,
+                  createdAt: user.created_at,
+                  technologies: userTechnologies
+                    .filter((technology) => technology.userId === user.id)
+                    .map((tech) => tech.technologyName),
+                };
+              });
+              console.log(users);
+              this.setState({
+                displayedUsers: users,
+              });
+            })
+            .catch((error) => {
+              // handle error
+              console.log(error);
+            });
+        })
+        .catch((error) => {
+          // handle error
+          console.log(error);
         });
-      });
     } else {
       axios
         .get(
@@ -107,6 +131,10 @@ class Connect extends React.Component {
         .then((res) => {
           const currentUserTech = res.data;
           console.log("this is currentUserTech: ", currentUserTech);
+        })
+        .catch((error) => {
+          // handle error
+          console.log(error);
         });
 
       axios
@@ -114,55 +142,61 @@ class Connect extends React.Component {
         .then((res) => {
           const allUserTechnologies = res.data;
           console.log("this is all user tech: ", allUserTechnologies);
-          axios.get("/api/v1/users").then((res2) => {
-            const users = res2.data.map((user) => {
-              return {
-                id: user.id,
-                handle: user.handle,
-                email: user.email,
-                createdAt: user.created_at,
-                technologies: allUserTechnologies
-                  .filter((technology) => technology.userId === user.id)
-                  .map((tech) => tech.technologyName),
-              };
-            });
+          axios
+            .get("/api/v1/users")
+            .then((res2) => {
+              const users = res2.data.map((user) => {
+                return {
+                  id: user.id,
+                  handle: user.handle,
+                  email: user.email,
+                  createdAt: user.created_at,
+                  technologies: allUserTechnologies
+                    .filter((technology) => technology.userId === user.id)
+                    .map((tech) => tech.technologyName),
+                };
+              });
 
-            console.log("this is local users were working with: ", users);
-            const currentUserTechNames = this.props.currentUser.techInterestedIn.map(
-              (tech) => tech.name
-            );
-            console.log("currentUserTechNames: ", currentUserTechNames);
-            const filteredUsers = [];
-            currentUserTechNames.forEach((currentUserTechName) => {
-              users.forEach((user) => {
-                user.technologies.forEach((techName) => {
-                  // console.log(user);
-                  if (techName === currentUserTechName) {
-                    // return multiple copies of users with the same tech name
-                    filteredUsers.push(user);
-                  }
+              console.log("this is local users were working with: ", users);
+              const currentUserTechNames = this.props.currentUser.techInterestedIn.map(
+                (tech) => tech.name
+              );
+              console.log("currentUserTechNames: ", currentUserTechNames);
+              const filteredUsers = [];
+              currentUserTechNames.forEach((currentUserTechName) => {
+                users.forEach((user) => {
+                  user.technologies.forEach((techName) => {
+                    // console.log(user);
+                    if (techName === currentUserTechName) {
+                      // return multiple copies of users with the same tech name
+                      filteredUsers.push(user);
+                    }
+                  });
                 });
               });
+              // console.log(users);
+              // const bestMatchedUsers = filteredUsers;
+              // console.log("hi: ", filteredUsers);
+              // const bestMatchedUsers = [];
+
+              //  - set displayed users state to filtered users
+              /* TODO order filteredUsers by most common tech interests, count how often someone is matched, order by number of times matches, most = highest, less = lowest. map through filteredUsers, get each user. if user shows up multiple times, push to top of list */
+
+              const bestMatched = countBy(filteredUsers, "handle");
+              const orderedUsers = orderBy(filteredUsers, ["handle"], ["desc"]);
+              const bestMatchedUsers = filteredUsers;
+              console.log(bestMatchedUsers);
+
+              console.log("this is filtered users: ", bestMatched);
+
+              this.setState({
+                displayedUsers: [...new Set(filteredUsers)],
+              });
+            })
+            .catch((error) => {
+              // handle error
+              console.log(error);
             });
-            // console.log(users);
-            // const bestMatchedUsers = filteredUsers;
-            // console.log("hi: ", filteredUsers);
-            // const bestMatchedUsers = [];
-
-            //  - set displayed users state to filtered users
-            /* TODO order filteredUsers by most common tech interests, count how often someone is matched, order by number of times matches, most = highest, less = lowest. map through filteredUsers, get each user. if user shows up multiple times, push to top of list */
-
-            const bestMatched = countBy(filteredUsers, "handle");
-            const orderedUsers = orderBy(filteredUsers, ["handle"], ["desc"]);
-            const bestMatchedUsers = filteredUsers;
-            console.log(bestMatchedUsers);
-
-            console.log("this is filtered users: ", bestMatched);
-
-            this.setState({
-              displayedUsers: [...new Set(filteredUsers)],
-            });
-          });
         })
         .catch((error) => {
           // handle error
