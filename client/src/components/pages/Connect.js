@@ -49,7 +49,6 @@ class Connect extends React.Component {
       .then(
         axios.spread((techRes, userRes) => {
           let userTechnologies = techRes.data;
-
           const users = userRes.data.map((user) => {
             return {
               id: user.id,
