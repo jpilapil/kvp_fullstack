@@ -35,7 +35,7 @@ class Navigation extends React.Component {
         variant="dark"
         className="pt-0"
       >
-        <Navbar.Brand className="text-brand text-success" href="/profile">
+        <Navbar.Brand className="text-brand text-success" href="/connect">
           <img
             src={kvpIcon}
             alt="Key Value Pairs Landing Logo"
