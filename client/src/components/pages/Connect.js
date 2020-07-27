@@ -49,6 +49,7 @@ class Connect extends React.Component {
       .then(
         axios.spread((techRes, userRes) => {
           let userTechnologies = techRes.data;
+          console.log("userTechnologies: ", userTechnologies);
           const users = userRes.data.map((user) => {
             return {
               id: user.id,
@@ -103,7 +104,7 @@ class Connect extends React.Component {
         .sort((a, b) => b[1] - a[1])
         .flatMap((o) => Array(o[1]).fill(map.get(o[0])));
 
-      console.log(res);
+      // console.log("sorted array of users: ", res);
 
       this.setState({
         displayedUsers: [...new Set(res)],
