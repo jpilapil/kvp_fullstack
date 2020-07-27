@@ -95,20 +95,30 @@ class Connect extends React.Component {
           });
         });
       });
-
-      //  - set displayed users state to filtered users
-      /* TODO order filteredUsers by most common tech interests, count how often someone is matched, order by number of times matches, most = highest, less = lowest. map through filteredUsers, get each user. if user shows up multiple times, push to top of list */
-
       const bestMatched = countBy(filteredUsers, "handle");
-      const orderedUsers = orderBy(filteredUsers, ["handle"], ["desc"]);
-      const bestMatchedUsers = filteredUsers;
-      console.log(bestMatchedUsers);
+      let ob = bestMatched;
+      let map = new Map();
+      filteredUsers.map((x) => map.set(x.handle, x));
+      let res = Object.entries(ob)
+        .sort((a, b) => b[1] - a[1])
+        .flatMap((o) => Array(o[1]).fill(map.get(o[0])));
 
-      console.log("this is filtered users: ", bestMatched);
+      console.log(res);
 
       this.setState({
-        displayedUsers: [...new Set(filteredUsers)],
+        displayedUsers: [...new Set(res)],
       });
+      // const bestMatched = countBy(filteredUsers, "handle");
+      // let ob = bestMatched;
+      // let map = new Map();
+      // filteredUsers.map((x) => map.set(x.handle, x));
+      // // let res = [];
+      // let v = Object.entries(ob)
+      //   .sort((a, b) => b[1] - a[1])
+      //   .forEach((o) => {
+      //     ob = map.get(o[0]);
+      //     res.push(Array(o[1]).fill(ob));
+      //   });
     }
   }
 
