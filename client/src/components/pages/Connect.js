@@ -132,7 +132,7 @@ class Connect extends React.Component {
     console.log(input);
     const copyOfDisplayedUsers = [...this.state.displayedUsers];
     const filteredUsers = copyOfDisplayedUsers.filter((user) => {
-      if (user.handle.includes(input.toLowerCase())) {
+      if (user.handle.toLowerCase().includes(input.toLowerCase())) {
         return true;
       } else return false;
     });
