@@ -8,7 +8,6 @@ import {
   faCogs,
 } from "@fortawesome/free-solid-svg-icons";
 import classnames from "classnames";
-import hash from "object-hash";
 import { v4 as getUuid } from "uuid";
 import { EMAIL_REGEX } from "../../utils/helpers";
 import { withRouter } from "react-router-dom";
@@ -130,32 +129,35 @@ class Landing extends React.Component {
       this.state.hasLogInEmailError === false &&
       this.state.hasLogInPasswordError === false
     ) {
+      // create user obj
       const user = {
         id: getUuid(),
         email: logInEmailInput,
-        password: hash(logInPasswordInput),
+        password: logInPasswordInput,
         createdAt: Date.now(),
       };
       console.log("created user object for POST: ", user);
-      // mimics api response
-      axios
-        .get(
-          "https://raw.githubusercontent.com/jpilapil/key-value-pair/master/src/mock-data/user.json"
-        )
-        .then((res) => {
-          const currentUser = res.data;
-          console.log("this is the user stored to global state: ", currentUser);
-          this.props.dispatch({
-            type: actions.UPDATE_CURRENT_USER,
-            payload: res.data,
-          });
-        })
-        .catch((error) => {
-          // handle error
-          console.log(error);
-        });
+      // post to api
+      // update current user in global state with api response
+      // go to next page: this.props.history.push("/connect");
 
-      this.props.history.push("/connect");
+      // // mimics api response
+      // axios
+      //   .get(
+      //     "https://raw.githubusercontent.com/jpilapil/key-value-pair/master/src/mock-data/user.json"
+      //   )
+      //   .then((res) => {
+      //     const currentUser = res.data;
+      //     console.log("this is the user stored to global state: ", currentUser);
+      //     this.props.dispatch({
+      //       type: actions.UPDATE_CURRENT_USER,
+      //       payload: res.data,
+      //     });
+      //   })
+      //   .catch((error) => {
+      //     // handle error
+      //     console.log(error);
+      //   });
     }
   }
 
@@ -295,10 +297,11 @@ class Landing extends React.Component {
       this.state.hasSignUpTechInterestError === false &&
       this.state.hasSignUpGenderError === false
     ) {
+      // create user obj
       const user = {
         id: getUuid(),
         email: signUpEmailInput,
-        password: hash(signUpPasswordInput),
+        password: signUpPasswordInput,
         createdAt: Date.now(),
         handle: signUpHandleInput,
         //gets value of the selected gender input (male, female, or na)
@@ -306,25 +309,35 @@ class Landing extends React.Component {
         techInterestedIn: signUpTechInterestInput,
       };
       console.log("created user object for POST: ", user);
-      // mimics api response
+      // post to API
       axios
-        .get(
-          "https://raw.githubusercontent.com/jpilapil/key-value-pair/master/src/mock-data/user.json"
-        )
+        .post("/api/v1/users", user)
         .then((res) => {
-          const currentUser = res.data;
-          console.log("this is the user stored to global state: ", currentUser);
-          this.props.dispatch({
-            type: actions.UPDATE_CURRENT_USER,
-            payload: res.data,
-          });
+          console.log(res);
         })
-        .catch((error) => {
-          // handle error
-          console.log(error);
+        .catch((err) => {
+          console.log(err);
         });
+      // update currentUser in global state with API response
+      // go to next page: this.props.history.push("/connect")
 
-      this.props.history.push("/connect");
+      // // mimics api response
+      // axios
+      //   .get(
+      //     "https://raw.githubusercontent.com/jpilapil/key-value-pair/master/src/mock-data/user.json"
+      //   )
+      //   .then((res) => {
+      //     const currentUser = res.data;
+      //     console.log("this is the user stored to global state: ", currentUser);
+      //     this.props.dispatch({
+      //       type: actions.UPDATE_CURRENT_USER,
+      //       payload: res.data,
+      //     });
+      //   })
+      //   .catch((error) => {
+      //     // handle error
+      //     console.log(error);
+      //   });
     }
   }
 
