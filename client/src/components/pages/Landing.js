@@ -9,7 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import classnames from "classnames";
 import { v4 as getUuid } from "uuid";
-import { EMAIL_REGEX, technologyList } from "../../utils/helpers";
+import { EMAIL_REGEX } from "../../utils/helpers";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 import { connect } from "react-redux";
@@ -41,9 +41,20 @@ class Landing extends React.Component {
       hasSignUpGenderError: false,
 
       tags: [],
-      suggestions: [...technologyList],
+      suggestions: [],
     };
+
     this.reactTags = React.createRef();
+  }
+
+  componentDidMount() {
+    // make api call to get all technologies in the database
+    axios
+      .get("/api/v1/technologies")
+      .then((res) => {
+        this.setState({ suggestions: res.data }); // set state of suggestions for react tags to the data in technologies api
+      })
+      .catch((err) => console.log(err));
   }
 
   onDelete(i) {
@@ -243,7 +254,7 @@ class Landing extends React.Component {
   }
 
   async setTechInterestState(signUpTechInterestInput) {
-    if (signUpTechInterestInput === "") {
+    if (signUpTechInterestInput === []) {
       this.setState({
         signUpTechInterestError:
           "Please enter technologies you're interested in",
@@ -292,22 +303,12 @@ class Landing extends React.Component {
 
     // gender input
     const signUpGenderSelect = this.state.signUpGenderSelect;
-    // const genderMaleChecked = document.getElementById("genderMale").checked;
-    // // console.log(genderMaleChecked);
-    // const genderFemaleChecked = document.getElementById("genderFemale").checked;
-    // // console.log(genderFemaleChecked);
-    // const genderNAChecked = document.getElementById("genderNA").checked;
-    // console.log(genderNAChecked);
+
     await this.setSignUpEmailState(signUpEmailInput);
     await this.setSignUpPasswordState(signUpPasswordInput, signUpEmailInput);
     await this.setSignUpHandleState(signUpHandleInput);
     await this.setTechInterestState(signUpTechInterestInput);
     await this.setGenderState(signUpGenderSelect);
-    // await this.setGenderState(
-    //   genderMaleChecked,
-    //   genderFemaleChecked,
-    //   genderNAChecked
-    // );
     if (
       this.state.hasSignUpEmailError === false &&
       this.state.hasSignUpPasswordError === false &&
@@ -328,8 +329,8 @@ class Landing extends React.Component {
       };
       console.log("Created new user object for POST: ", user);
       console.log(
-        signUpTechInterestInput.map((user) => {
-          return user.name;
+        signUpTechInterestInput.map((tech) => {
+          return tech.name;
         })
       );
       // post to API
@@ -517,6 +518,7 @@ class Landing extends React.Component {
                 suggestions={this.state.suggestions}
                 onDelete={this.onDelete.bind(this)}
                 onAddition={this.onAddition.bind(this)}
+                placeholderText="Please choose a technology"
                 type="technologies"
                 className={classnames({
                   "form-control": true,
