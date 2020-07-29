@@ -9,7 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import classnames from "classnames";
 import { v4 as getUuid } from "uuid";
-import { EMAIL_REGEX } from "../../utils/helpers";
+import { EMAIL_REGEX, technologyList } from "../../utils/helpers";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 import { connect } from "react-redux";
@@ -41,12 +41,7 @@ class Landing extends React.Component {
       hasSignUpGenderError: false,
 
       tags: [],
-      suggestions: [
-        { id: 3, name: "JavaScript" },
-        { id: 4, name: "C#" },
-        { id: 5, name: "C++" },
-        { id: 6, name: "Swift" },
-      ],
+      suggestions: [...technologyList],
     };
     this.reactTags = React.createRef();
   }
