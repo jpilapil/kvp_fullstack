@@ -326,10 +326,10 @@ class Landing extends React.Component {
         gender: this.state.signUpGenderSelect,
         techInterestedIn: signUpTechInterestInput,
       };
-      console.log("created user object for POST: ", user);
+      console.log("Created new user object for POST: ", user);
       console.log(
         signUpTechInterestInput.map((user) => {
-          return user.id;
+          return user.name;
         })
       );
       // post to API
