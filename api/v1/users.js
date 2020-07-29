@@ -28,7 +28,7 @@ router.get("/", (req, res) => {
 // @access     PUBLIC
 router.post("/", async (req, res) => {
   const user = req.body;
-  user.password = await toHash(user.password);
+  user.password = await toHash(user.password); // await hashed passoword
   console.log(user);
 });
 

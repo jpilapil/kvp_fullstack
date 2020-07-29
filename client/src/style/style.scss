@@ -185,3 +185,10 @@ input {
   border-color: $lighterbackground;
   color: $light;
 }
+
+.react-tags {
+  width: 100%;
+  background-color: $lightest;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}

@@ -14,6 +14,7 @@ import { withRouter } from "react-router-dom";
 import axios from "axios";
 import { connect } from "react-redux";
 import actions from "../../store/actions";
+import ReactTags from "react-tag-autocomplete";
 
 class Landing extends React.Component {
   constructor() {
@@ -38,7 +39,27 @@ class Landing extends React.Component {
       hasSignUpHandleError: false,
       hasSignUpTechInterestError: false,
       hasSignUpGenderError: false,
+
+      tags: [],
+      suggestions: [
+        { id: 3, name: "JavaScript" },
+        { id: 4, name: "C#" },
+        { id: 5, name: "C++" },
+        { id: 6, name: "Swift" },
+      ],
     };
+    this.reactTags = React.createRef();
+  }
+
+  onDelete(i) {
+    const tags = this.state.tags.slice(0);
+    tags.splice(i, 1);
+    this.setState({ tags });
+  }
+
+  onAddition(tag) {
+    const tags = [].concat(this.state.tags, tag);
+    this.setState({ tags });
   }
   // set log in card
   showLogInCard() {
@@ -269,9 +290,11 @@ class Landing extends React.Component {
     const signUpHandleInput = document.getElementById("signUpHandleInput")
       .value;
     // tech interested input
-    const signUpTechInterestInput = document.getElementById(
-      "signUpTechInterestInput"
-    ).value;
+    // const signUpTechInterestInput = document.getElementById(
+    //   "signUpTechInterestInput"
+    // ).value;
+    const signUpTechInterestInput = this.state.tags;
+
     // gender input
     const signUpGenderSelect = this.state.signUpGenderSelect;
     // const genderMaleChecked = document.getElementById("genderMale").checked;
@@ -309,6 +332,11 @@ class Landing extends React.Component {
         techInterestedIn: signUpTechInterestInput,
       };
       console.log("created user object for POST: ", user);
+      console.log(
+        signUpTechInterestInput.map((user) => {
+          return user.id;
+        })
+      );
       // post to API
       axios
         .post("/api/v1/users", user)
@@ -487,7 +515,13 @@ class Landing extends React.Component {
               <label className="text-light" htmlFor="signUpTechInterestInput">
                 Technologies I'm interested in
               </label>
-              <input
+
+              <ReactTags
+                ref={this.reactTags}
+                tags={this.state.tags}
+                suggestions={this.state.suggestions}
+                onDelete={this.onDelete.bind(this)}
+                onAddition={this.onAddition.bind(this)}
                 type="technologies"
                 className={classnames({
                   "form-control": true,
@@ -495,6 +529,15 @@ class Landing extends React.Component {
                 })}
                 id="signUpTechInterestInput"
               />
+
+              {/* <input
+                type="technologies"
+                className={classnames({
+                  "form-control": true,
+                  "is-invalid": this.state.hasSignUpTechInterestError,
+                })}
+                id="signUpTechInterestInput"
+              /> */}
               {/* tech interest error */}
               {this.state.hasSignUpTechInterestError && (
                 <p className="text-danger mb-2 mt-1">
