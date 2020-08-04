@@ -319,20 +319,30 @@ class Landing extends React.Component {
       // create user obj
       const user = {
         id: getUuid(),
+        handle: signUpHandleInput,
         email: signUpEmailInput,
         password: signUpPasswordInput,
-        createdAt: Date.now(),
-        handle: signUpHandleInput,
         //gets value of the selected gender input (male, female, or na)
         gender: this.state.signUpGenderSelect,
-        techInterestedIn: signUpTechInterestInput,
+        createdAt: Date.now(),
+        // techInterestedIn: signUpTechInterestInput,
       };
+      const userXrefTech = {
+        id: getUuid(),
+        userId: user.id,
+        technologyId: signUpTechInterestInput.map((tech) => {
+          return tech.id;
+        }),
+      };
+
       console.log("Created new user object for POST: ", user);
-      console.log(
-        signUpTechInterestInput.map((tech) => {
-          return tech.name;
-        })
-      );
+      console.log("Created new userXrefTech object for POST: ", userXrefTech);
+      // console.log(
+      //   signUpTechInterestInput.map((tech) => {
+      //     return tech.id;
+      //   })
+      // );
+      // console.log("tech ids: ", signUpTechInterestInput);
       // post to API
       axios
         .post("/api/v1/users", user)
