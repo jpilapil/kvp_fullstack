@@ -37,21 +37,15 @@ router.post("/", async (req, res) => {
     password: await toHash(req.body.password),
     gender: req.body.gender,
     created_at: req.body.createdAt,
-    // tech_interested_in: req.body.techInterestedIn..map((tech) => {
-    //   return tech.id;
-    // }), // this is an array
   };
 
   const userXrefTech = {
     id: getUuid(),
     user_id: req.body.id,
-    technology_id: req.body.techInterestedIn.map((tech) => {
-      return tech.id;
+    technology_id: req.body.techInterestedIn.map((techObj) => {
+      return techObj.id;
     }),
   };
-  // user.techInterestedIn.forEach((tech) => {
-  //   userXrefTech.technology_id.push(tech);
-  // });
   // for each technology in technology array, insert into xref_user_technologies
 
   console.log(user);
