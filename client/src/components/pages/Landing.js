@@ -325,15 +325,16 @@ class Landing extends React.Component {
         //gets value of the selected gender input (male, female, or na)
         gender: this.state.signUpGenderSelect,
         createdAt: Date.now(),
-        // techInterestedIn: signUpTechInterestInput,
+        techInterestedIn: signUpTechInterestInput,
       };
       const userXrefTech = {
         id: getUuid(),
         userId: user.id,
-        technologyId: signUpTechInterestInput.map((tech) => {
-          return tech.id;
-        }),
+        technologyId: [],
       };
+      signUpTechInterestInput.forEach((tech) => {
+        userXrefTech.technologyId.push(tech.id);
+      });
 
       console.log("Created new user object for POST: ", user);
       console.log("Created new userXrefTech object for POST: ", userXrefTech);
