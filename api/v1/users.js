@@ -57,6 +57,7 @@ router.post("/", async (req, res) => {
     technology_id: req.body.techInterestedIn[2].id,
   };
   console.log(user);
+
   db.query(insertUser, user)
     .then((dbRes) => {
       db.query(insertXrefUserTech, userXrefTech1)

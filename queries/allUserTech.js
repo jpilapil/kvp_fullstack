@@ -19,9 +19,7 @@ SELECT
     users.email,
     users.password,
     users.gender,
-    users.preferred_gender,
     users.created_at,
-    users.rating,
     technologies.id AS technology_id,
     technologies.name,
     technologies.popularity
