@@ -39,20 +39,42 @@ router.post("/", async (req, res) => {
     created_at: req.body.createdAt,
   };
 
-  const userXrefTech = {
+  const userXrefTech1 = {
     id: getUuid(),
     user_id: req.body.id,
-    technology_id: req.body.techInterestedIn.map((techObj) => {
-      return techObj.id;
-    }),
+    technology_id: req.body.techInterestedIn[0].id,
   };
-  // for each technology in technology array, insert into xref_user_technologies
 
+  const userXrefTech2 = {
+    id: getUuid(),
+    user_id: req.body.id,
+    technology_id: req.body.techInterestedIn[1].id,
+  };
+
+  const userXrefTech3 = {
+    id: getUuid(),
+    user_id: req.body.id,
+    technology_id: req.body.techInterestedIn[2].id,
+  };
   console.log(user);
   db.query(insertUser, user)
     .then((dbRes) => {
-      db.query(insertXrefUserTech, userXrefTech)
+      db.query(insertXrefUserTech, userXrefTech1)
         .then((res) => {
+          db.query(insertXrefUserTech, userXrefTech2)
+            .then((res) => {
+              db.query(insertXrefUserTech, userXrefTech3)
+                .then((res) => {
+                  console.log(res);
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+              console.log(res);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
           console.log(res);
         })
         .catch((err) => {
