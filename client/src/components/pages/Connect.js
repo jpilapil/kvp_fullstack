@@ -102,12 +102,13 @@ class Connect extends React.Component {
       filteredUsers.map((x) => map.set(x.handle, x));
       let res = Object.entries(ob)
         .sort((a, b) => b[1] - a[1])
-        .flatMap((o) => Array(o[1]).fill(map.get(o[0])));
+        .flatMap((o) => Array(o[1]).fill(map.get(o[0]))); // flat map instead of ...new Set
 
       // console.log("sorted array of users: ", res);
 
       this.setState({
-        displayedUsers: [...new Set(res)],
+        // displayedUsers: [...new Set(res)],
+        displayedUsers: res,
       });
       // const bestMatched = countBy(filteredUsers, "handle");
       // let ob = bestMatched;
