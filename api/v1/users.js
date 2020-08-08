@@ -27,7 +27,7 @@ router.get("/", (req, res) => {
 });
 
 // @route      POST api/v1/users
-// @desc       Create a new user
+// @desc       Create a new user and user xref tech
 // @access     PUBLIC
 router.post("/", async (req, res) => {
   const user = {
