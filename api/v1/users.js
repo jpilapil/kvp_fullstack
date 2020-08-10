@@ -7,6 +7,7 @@ const { toHash } = require("../../utils/helpers");
 const insertUser = require("../../queries/insertUser");
 const insertXrefUserTech = require("../../queries/insertXrefUserTech");
 const selectUserById = require("../../queries/selectUserById");
+const selectUserByHandle = require("../../queries/selectUserByHandle");
 const { v4: getUuid } = require("uuid");
 const getSignUpEmailError = require("../../validation/getSignUpEmailError");
 const getSignUpPasswordError = require("../../validation/getSignUpPasswordError");
@@ -81,8 +82,16 @@ router.post("/", async (req, res) => {
     // user queries
     db.query(insertUser, user)
       .then(() => {
-        db.query(selectUserById, id)
-          .then((users) => {
+        db.query(selectUserById, id).then((users) => {
+          const user = users[0];
+          res.status(200).json({
+            id: user.id,
+            handle: user.handle,
+            email: user.email,
+            // gender: user.gender,
+            createdAt: user.created_at,
+          });
+          db.query(selectUserByHandle, handle).then((users) => {
             const user = users[0];
             res.status(200).json({
               id: user.id,
@@ -91,26 +100,16 @@ router.post("/", async (req, res) => {
               // gender: user.gender,
               createdAt: user.created_at,
             });
-            db.query(selectUserByHandle, handle)
-              .then((users) => {
-                const user = users[0];
-                res.status(200).json({
-                  id: user.id,
-                  handle: user.handle,
-                  email: user.email,
-                  // gender: user.gender,
-                  createdAt: user.created_at,
-                });
-              })
-              .catch(() => {
-                console.log(err);
-                res.status(400).json("something happened in the database.");
-              });
-          })
-          .catch(() => {
-            console.log(err);
-            res.status(400).json("something happened in the database.");
           });
+          //     .catch(() => {
+          //       console.log(err);
+          //       res.status(400).json("something happened in the database.");
+          //     });
+          // })
+          // .catch(() => {
+          //   console.log(err);
+          //   res.status(400).json("something happened in the database.");
+        });
       })
       .catch((err) => {
         console.log(err);

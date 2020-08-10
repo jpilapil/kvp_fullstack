@@ -351,7 +351,7 @@ class Landing extends React.Component {
           console.log(res.data);
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err.response.data);
         });
       // update currentUser in global state with API response
       // go to next page: this.props.history.push("/connect")
