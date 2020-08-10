@@ -348,10 +348,10 @@ class Landing extends React.Component {
       axios
         .post("/api/v1/users", user)
         .then((res) => {
-          console.log(res);
+          console.log(res.data);
         })
         .catch((err) => {
-          console.log(err.response.data);
+          console.log(err);
         });
       // update currentUser in global state with API response
       // go to next page: this.props.history.push("/connect")
