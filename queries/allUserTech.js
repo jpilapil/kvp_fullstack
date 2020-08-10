@@ -18,7 +18,7 @@ SELECT
     users.handle,
     users.email,
     users.password,
-    users.gender,
+    
     users.created_at,
     technologies.id AS technology_id,
     technologies.name,

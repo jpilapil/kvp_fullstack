@@ -39,7 +39,7 @@ router.post("/", async (req, res) => {
     handle,
     email,
     password,
-    gender,
+    // gender,
     createdAt,
     techInterestedIn,
   } = req.body;
@@ -52,7 +52,7 @@ router.post("/", async (req, res) => {
       handle: handle,
       email: email,
       password: await toHash(password),
-      gender: gender,
+      // gender: gender,
       created_at: createdAt,
     };
 
@@ -85,7 +85,7 @@ router.post("/", async (req, res) => {
               id: user.id,
               handle: user.handle,
               email: user.email,
-              gender: user.gender,
+              // gender: user.gender,
               createdAt: user.created_at,
             });
           })

@@ -32,13 +32,13 @@ class Landing extends React.Component {
       signUpPasswordError: "",
       signUpHandleError: "",
       signUpTechInterestError: "",
-      signUpGenderError: "",
-      signUpGenderSelect: "",
+      // signUpGenderError: "",
+      // signUpGenderSelect: "",
       hasSignUpEmailError: false,
       hasSignUpPasswordError: false,
       hasSignUpHandleError: false,
       hasSignUpTechInterestError: false,
-      hasSignUpGenderError: false,
+      // hasSignUpGenderError: false,
 
       tags: [],
       suggestions: [],
@@ -85,8 +85,8 @@ class Landing extends React.Component {
       signUpPasswordError: "",
       signUpHandleError: "",
       signUpTechInterestError: "",
-      signUpGenderError: "",
-      signUpGenderSelect: "",
+      // signUpGenderError: "",
+      // signUpGenderSelect: "",
       hasSignUpEmailError: false,
       hasSignUpPasswordError: false,
       hasSignUpHandleError: false,
@@ -96,11 +96,11 @@ class Landing extends React.Component {
   }
 
   // gets value of radio
-  handleChange = (e) => {
-    this.setState({
-      signUpGenderSelect: e.target.value,
-    });
-  };
+  // handleChange = (e) => {
+  //   this.setState({
+  //     signUpGenderSelect: e.target.value,
+  //   });
+  // };
 
   // LOG IN ----------
   async setLogInEmailState(logInEmailInput) {
@@ -268,22 +268,22 @@ class Landing extends React.Component {
     }
   }
 
-  async setGenderState(genderSelect) {
-    if (
-      // if genderSelect is empty, throw error
-      genderSelect === ""
-    ) {
-      this.setState({
-        signUpGenderError: "Please select your gender",
-        hasSignUpGenderError: true,
-      });
-    } else {
-      this.setState({
-        signUpGenderError: "",
-        hasSignUpGenderError: false,
-      });
-    }
-  }
+  // async setGenderState(genderSelect) {
+  //   if (
+  //     // if genderSelect is empty, throw error
+  //     genderSelect === ""
+  //   ) {
+  //     this.setState({
+  //       signUpGenderError: "Please select your gender",
+  //       hasSignUpGenderError: true,
+  //     });
+  //   } else {
+  //     this.setState({
+  //       signUpGenderError: "",
+  //       hasSignUpGenderError: false,
+  //     });
+  //   }
+  // }
   // !!!!!! convert all these similar to gender input !!!!!!
   // sign up errors
   async createNewUser() {
@@ -302,19 +302,19 @@ class Landing extends React.Component {
     const signUpTechInterestInput = this.state.tags;
 
     // gender input
-    const signUpGenderSelect = this.state.signUpGenderSelect;
+    // const signUpGenderSelect = this.state.signUpGenderSelect;
 
     await this.setSignUpEmailState(signUpEmailInput);
     await this.setSignUpPasswordState(signUpPasswordInput, signUpEmailInput);
     await this.setSignUpHandleState(signUpHandleInput);
     await this.setTechInterestState(signUpTechInterestInput);
-    await this.setGenderState(signUpGenderSelect);
+    // await this.setGenderState(signUpGenderSelect);
     if (
       this.state.hasSignUpEmailError === false &&
       this.state.hasSignUpPasswordError === false &&
       this.state.hasSignUpHandleError === false &&
-      this.state.hasSignUpTechInterestError === false &&
-      this.state.hasSignUpGenderError === false
+      this.state.hasSignUpTechInterestError === false
+      // this.state.hasSignUpGenderError === false
     ) {
       // create user obj
       const user = {
@@ -323,7 +323,7 @@ class Landing extends React.Component {
         email: signUpEmailInput,
         password: signUpPasswordInput,
         //gets value of the selected gender input (male, female, or na)
-        gender: this.state.signUpGenderSelect,
+        // gender: this.state.signUpGenderSelect,
         createdAt: Date.now(),
         techInterestedIn: signUpTechInterestInput,
       };
@@ -555,7 +555,7 @@ class Landing extends React.Component {
             </div>
 
             {/* gender */}
-            <label className="text-light" htmlFor="genderSelect">
+            {/* <label className="text-light" htmlFor="genderSelect">
               Please specify your gender
             </label>
             <div className="row ml-1">
@@ -615,7 +615,7 @@ class Landing extends React.Component {
                   {this.state.signUpGenderError}
                 </p>
               )}
-            </div>
+            </div> */}
 
             <button
               id="letsGo"

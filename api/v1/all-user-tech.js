@@ -17,7 +17,7 @@ router.get("/", (req, res) => {
         return {
           userId: user.user_id,
           handle: user.handle,
-          gender: user.gender,
+          // gender: user.gender,
           createdAt: user.created_at,
           technologyId: user.technology_id,
           technologyName: user.name,

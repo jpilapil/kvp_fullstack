@@ -1,6 +1,6 @@
 const selectUserById = `
      SELECT 
-     id, handle, email, gender, created_at
+     id, handle, email, created_at
      FROM
         users
      WHERE
