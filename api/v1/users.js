@@ -76,6 +76,7 @@ router.post("/", async (req, res) => {
 
     console.log(user);
 
+    // user queries
     db.query(insertUser, user)
       .then(() => {
         db.query(selectUserById, id)
@@ -93,17 +94,19 @@ router.post("/", async (req, res) => {
             console.log(err);
             res.status(400).json("something happened in the database.");
           });
-        db.query(insertXrefUserTech, userXrefTech1)
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(400).json({ emailError, passwordError });
+      });
+
+    // tech queries
+    db.query(insertXrefUserTech, userXrefTech1)
+      .then((res) => {
+        db.query(insertXrefUserTech, userXrefTech2)
           .then((res) => {
-            db.query(insertXrefUserTech, userXrefTech2)
+            db.query(insertXrefUserTech, userXrefTech3)
               .then((res) => {
-                db.query(insertXrefUserTech, userXrefTech3)
-                  .then((res) => {
-                    console.log(res);
-                  })
-                  .catch((err) => {
-                    console.log(err);
-                  });
                 console.log(res);
               })
               .catch((err) => {
@@ -114,10 +117,10 @@ router.post("/", async (req, res) => {
           .catch((err) => {
             console.log(err);
           });
+        console.log(res);
       })
       .catch((err) => {
         console.log(err);
-        res.status(400).json({ emailError, passwordError });
       });
   } else {
     res.status(400).json({ emailError, passwordError });
