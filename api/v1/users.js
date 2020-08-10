@@ -10,6 +10,7 @@ const selectUserById = require("../../queries/selectUserById");
 const { v4: getUuid } = require("uuid");
 const getSignUpEmailError = require("../../validation/getSignUpEmailError");
 const getSignUpPasswordError = require("../../validation/getSignUpPasswordError");
+const getSignUpHandleError = require("../../validation/getSignUpHandleError");
 
 // @route      GET api/v1/users
 // @desc       GET a valid user via email and password
@@ -45,8 +46,9 @@ router.post("/", async (req, res) => {
   } = req.body;
   const emailError = await getSignUpEmailError(email);
   const passwordError = getSignUpPasswordError(password, email);
+  const handleError = await getSignUpHandleError(handle);
 
-  if (emailError === "" && passwordError === "") {
+  if (emailError === "" && passwordError === "" && handleError === "") {
     const user = {
       id: id,
       handle: handle,
@@ -89,6 +91,21 @@ router.post("/", async (req, res) => {
               // gender: user.gender,
               createdAt: user.created_at,
             });
+            db.query(selectUserByHandle, handle)
+              .then((users) => {
+                const user = users[0];
+                res.status(200).json({
+                  id: user.id,
+                  handle: user.handle,
+                  email: user.email,
+                  // gender: user.gender,
+                  createdAt: user.created_at,
+                });
+              })
+              .catch(() => {
+                console.log(err);
+                res.status(400).json("something happened in the database.");
+              });
           })
           .catch(() => {
             console.log(err);
@@ -97,7 +114,7 @@ router.post("/", async (req, res) => {
       })
       .catch((err) => {
         console.log(err);
-        res.status(400).json({ emailError, passwordError });
+        res.status(400).json({ emailError, passwordError, handleError });
       });
 
     // tech queries
@@ -123,7 +140,7 @@ router.post("/", async (req, res) => {
         console.log(err);
       });
   } else {
-    res.status(400).json({ emailError, passwordError });
+    res.status(400).json({ emailError, passwordError, handleError });
   }
 });
 

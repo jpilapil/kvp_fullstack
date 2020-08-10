@@ -1,4 +1,5 @@
 const { HANDLE_REGEX } = require("../utils/helpers");
+const db = require("../db");
 const selectUserByHandle = require("../queries/selectUserByHandle");
 
 module.exports = async function getSignUpHandleError(handle) {
