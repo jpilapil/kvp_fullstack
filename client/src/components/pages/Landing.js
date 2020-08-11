@@ -254,10 +254,9 @@ class Landing extends React.Component {
   }
 
   async setTechInterestState(signUpTechInterestInput) {
-    if (signUpTechInterestInput === []) {
+    if (signUpTechInterestInput !== 3) {
       this.setState({
-        signUpTechInterestError:
-          "Please enter technologies you're interested in",
+        signUpTechInterestError: "Please select 3 technologies.",
         hasSignUpTechInterestError: true,
       });
     } else {
@@ -299,7 +298,9 @@ class Landing extends React.Component {
     // const signUpTechInterestInput = document.getElementById(
     //   "signUpTechInterestInput"
     // ).value;
-    const signUpTechInterestInput = this.state.tags;
+    const signUpTechInterestInput = document.getElementsByClassName(
+      "react-tags__selected-tag"
+    ).length;
 
     // gender input
     // const signUpGenderSelect = this.state.signUpGenderSelect;
@@ -325,7 +326,7 @@ class Landing extends React.Component {
         //gets value of the selected gender input (male, female, or na)
         // gender: this.state.signUpGenderSelect,
         createdAt: Date.now(),
-        techInterestedIn: signUpTechInterestInput,
+        // techInterestedIn: signUpTechInterestInput,
       };
       const userXrefTech = {
         id: getUuid(),
@@ -520,7 +521,7 @@ class Landing extends React.Component {
             {/* tech interested in */}
             <div className="form-group mt-3">
               <label className="text-light" htmlFor="signUpTechInterestInput">
-                Technologies I'm interested in
+                Technologies I'm interested in &#40;Please select 3&#41;
               </label>
 
               <ReactTags
@@ -529,7 +530,9 @@ class Landing extends React.Component {
                 suggestions={this.state.suggestions}
                 onDelete={this.onDelete.bind(this)}
                 onAddition={this.onAddition.bind(this)}
-                placeholderText="Please choose a technology"
+                placeholderText="Please select 3 technologies"
+                minQueryLength={1}
+                noSuggestionsText="Oops! We couldn't find that technology!"
                 type="technologies"
                 className={classnames({
                   "form-control": true,

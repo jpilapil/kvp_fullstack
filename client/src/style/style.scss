@@ -192,3 +192,17 @@ input {
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
 }
+
+.react-tags__search-input {
+  background-color: $lightest;
+  color: #495057;
+  margin-left: 1rem;
+}
+
+.react-tags__selected-tag {
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  color: $lighterbackground;
+  margin-left: 0.75rem;
+  margin-top: 0.25rem;
+}
