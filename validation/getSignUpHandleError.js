@@ -7,7 +7,7 @@ module.exports = async function getSignUpHandleError(handle) {
     return "Please enter a username.";
   }
   if (HANDLE_REGEX.test(handle) === false) {
-    return 'Please enter a valid username between 3-16 characters. Cannot contain special characters, i.e, "!@#?$".';
+    return "Username may only contain A-Z, 0-9, underscores, and dashes.";
   }
   if (await checkIsInDb(handle)) {
     return "This username already exists!";
