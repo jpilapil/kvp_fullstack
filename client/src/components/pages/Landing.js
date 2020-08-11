@@ -521,7 +521,7 @@ class Landing extends React.Component {
             {/* tech interested in */}
             <div className="form-group mt-3">
               <label className="text-light" htmlFor="signUpTechInterestInput">
-                Technologies I'm interested in &#40;Please select 3&#41;
+                Technologies I'm interested in
               </label>
 
               <ReactTags
