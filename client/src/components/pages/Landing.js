@@ -191,69 +191,6 @@ class Landing extends React.Component {
 
   // SIGN UP ----------
 
-  async setSignUpEmailState(signUpEmailInput) {
-    const lowerCasedEmailInput = signUpEmailInput.toLowerCase();
-    if (signUpEmailInput === "")
-      this.setState({
-        signUpEmailError: "Please enter your email address",
-        hasSignUpEmailError: true,
-      });
-    else if (EMAIL_REGEX.test(lowerCasedEmailInput) === false) {
-      this.setState({
-        signUpEmailError: "Please enter a valid email address",
-        hasSignUpEmailError: true,
-      });
-    } else {
-      this.setState({ signUpEmailError: "", hasSignUpEmailError: false });
-    }
-  }
-
-  checkHasLocalPart(signUpPasswordInput, signUpEmailInput) {
-    const localPart = signUpEmailInput.split("@")[0];
-    if (localPart === "") return false;
-    else if (localPart.length < 4) return false;
-    else return signUpPasswordInput.includes(localPart);
-  }
-
-  async setSignUpPasswordState(signUpPasswordInput, signUpEmailInput) {
-    const uniqChars = [...new Set(signUpPasswordInput)]; // turn set of password input into an array of unique characters
-    if (signUpPasswordInput === "") {
-      this.setState({
-        signUpPasswordError: "Please enter a password",
-        hasSignUpPasswordError: true,
-      });
-    } else if (signUpPasswordInput.length < 9) {
-      this.setState({
-        signUpPasswordError: "Your password must be at least 9 characters",
-        hasSignUpPasswordError: true,
-      });
-    } else if (this.checkHasLocalPart(signUpPasswordInput, signUpEmailInput)) {
-      this.setState({
-        signUpPasswordError: "Your password cannot contain your email address",
-        hasSignUpPasswordError: true,
-      });
-    } else if (uniqChars.length < 3) {
-      this.setState({
-        signUpPasswordError:
-          "Your password must contain at least 3 unique characters",
-        hasSignUpPasswordError: true,
-      });
-    } else {
-      this.setState({ signUpPasswordError: "", hasSignUpPasswordError: false });
-    }
-  }
-
-  async setSignUpHandleState(signUpHandleInput) {
-    if (signUpHandleInput === "") {
-      this.setState({
-        signUpHandleError: "Please enter a username",
-        hasSignUpHandleError: true,
-      });
-    } else {
-      this.setState({ signUpHandleError: "", hasSignUpHandleError: false });
-    }
-  }
-
   async setTechInterestState(signUpTechInterestInput) {
     if (signUpTechInterestInput !== 3) {
       this.setState({
