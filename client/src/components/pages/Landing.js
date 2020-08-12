@@ -57,12 +57,13 @@ class Landing extends React.Component {
       .catch((err) => console.log(err));
   }
 
+  // used for react tags
   onDelete(i) {
     const tags = this.state.tags.slice(0);
     tags.splice(i, 1);
     this.setState({ tags });
   }
-
+  // used for react tags
   onAddition(tag) {
     const tags = [].concat(this.state.tags, tag);
     this.setState({ tags });
@@ -301,80 +302,116 @@ class Landing extends React.Component {
     const signUpTechInterestInput = document.getElementsByClassName(
       "react-tags__selected-tag"
     ).length;
+    const reactTagsTechInput = this.state.tags;
 
     // gender input
     // const signUpGenderSelect = this.state.signUpGenderSelect;
 
-    await this.setSignUpEmailState(signUpEmailInput);
-    await this.setSignUpPasswordState(signUpPasswordInput, signUpEmailInput);
-    await this.setSignUpHandleState(signUpHandleInput);
-    await this.setTechInterestState(signUpTechInterestInput);
+    // await this.setSignUpEmailState(signUpEmailInput);
+    // await this.setSignUpPasswordState(signUpPasswordInput, signUpEmailInput);
+    // await this.setSignUpHandleState(signUpHandleInput);
+    // await this.setTechInterestState(signUpTechInterestInput);
     // await this.setGenderState(signUpGenderSelect);
-    if (
-      this.state.hasSignUpEmailError === false &&
-      this.state.hasSignUpPasswordError === false &&
-      this.state.hasSignUpHandleError === false &&
-      this.state.hasSignUpTechInterestError === false
-      // this.state.hasSignUpGenderError === false
-    ) {
-      // create user obj
-      const user = {
-        id: getUuid(),
-        handle: signUpHandleInput,
-        email: signUpEmailInput,
-        password: signUpPasswordInput,
-        //gets value of the selected gender input (male, female, or na)
-        // gender: this.state.signUpGenderSelect,
-        createdAt: Date.now(),
-        // techInterestedIn: signUpTechInterestInput,
-      };
-      const userXrefTech = {
-        id: getUuid(),
-        userId: user.id,
-        technologyId: [],
-      };
-      signUpTechInterestInput.forEach((tech) => {
-        userXrefTech.technologyId.push(tech.id);
+    // if (
+    //   // this.state.hasSignUpEmailError === false &&
+    //   // this.state.hasSignUpPasswordError === false &&
+    //   // this.state.hasSignUpHandleError === false &&
+    //   this.state.hasSignUpTechInterestError === false
+    //   // this.state.hasSignUpGenderError === false
+    // ) {
+    // create user obj
+    const user = {
+      id: getUuid(),
+      handle: signUpHandleInput,
+      email: signUpEmailInput,
+      password: signUpPasswordInput,
+      //gets value of the selected gender input (male, female, or na)
+      // gender: this.state.signUpGenderSelect,
+      createdAt: Date.now(),
+      // techInterestedIn: signUpTechInterestInput,
+    };
+    const userXrefTech = {
+      id: getUuid(),
+      userId: user.id,
+      technologyId: [],
+    };
+    reactTagsTechInput.forEach((tech) => {
+      userXrefTech.technologyId.push(tech.id);
+    });
+
+    // console.log("Created new user object for POST: ", user);
+    // console.log("Created new userXrefTech object for POST: ", userXrefTech);
+    // console.log(
+    //   signUpTechInterestInput.map((tech) => {
+    //     return tech.id;
+    //   })
+    // );
+    // console.log("tech ids: ", signUpTechInterestInput);
+    // post to API
+    axios
+      .post("/api/v1/users", user)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        const { data } = err.response;
+        console.log(data);
+        const { emailError, passwordError, handleError } = data;
+        if (emailError !== "") {
+          this.setState({
+            hasSignUpEmailError: true,
+            signUpEmailError: emailError,
+          });
+        } else {
+          this.setState({
+            hasSignUpEmailError: false,
+            signUpEmailError: emailError,
+          });
+        }
+        if (passwordError !== "") {
+          this.setState({
+            hasSignUpPasswordError: true,
+            signUpPasswordError: passwordError,
+          });
+        } else {
+          this.setState({
+            hasSignUpPasswordError: false,
+            signUpPasswordError: passwordError,
+          });
+        }
+        if (handleError !== "") {
+          this.setState({
+            hasSignUpHandleError: true,
+            signUpHandleError: handleError,
+          });
+        } else {
+          this.setState({
+            hasSignUpHandleError: false,
+            signUpHandleError: handleError,
+          });
+        }
       });
+    // update currentUser in global state with API response
+    // go to next page: this.props.history.push("/connect")
 
-      console.log("Created new user object for POST: ", user);
-      console.log("Created new userXrefTech object for POST: ", userXrefTech);
-      // console.log(
-      //   signUpTechInterestInput.map((tech) => {
-      //     return tech.id;
-      //   })
-      // );
-      // console.log("tech ids: ", signUpTechInterestInput);
-      // post to API
-      axios
-        .post("/api/v1/users", user)
-        .then((res) => {
-          console.log(res.data);
-        })
-        .catch((err) => {
-          console.log(err.response.data);
-        });
-      // update currentUser in global state with API response
-      // go to next page: this.props.history.push("/connect")
-
-      // // mimics api response
-      // axios
-      //   .get(
-      //     "https://raw.githubusercontent.com/jpilapil/key-value-pair/master/src/mock-data/user.json"
-      //   )
-      //   .then((res) => {
-      //     const currentUser = res.data;
-      //     console.log("this is the user stored to global state: ", currentUser);
-      //     this.props.dispatch({
-      //       type: actions.UPDATE_CURRENT_USER,
-      //       payload: res.data,
-      //     });
-      //   })
-      //   .catch((error) => {
-      //     // handle error
-      //     console.log(error);
-      //   });
-    }
+    // // mimics api response
+    // axios
+    //   .get(
+    //     "https://raw.githubusercontent.com/jpilapil/key-value-pair/master/src/mock-data/user.json"
+    //   )
+    //   .then((res) => {
+    //     const currentUser = res.data;
+    //     console.log("this is the user stored to global state: ", currentUser);
+    //     this.props.dispatch({
+    //       type: actions.UPDATE_CURRENT_USER,
+    //       payload: res.data,
+    //     });
+    //   })
+    //   .catch((error) => {
+    //     // handle error
+    //     console.log(error);
+    //   });
+    // }
   }
 
   // log in card -- shown as default state
