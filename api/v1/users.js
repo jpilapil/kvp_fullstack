@@ -2,8 +2,8 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../../db");
-// const allUsers = require("../../queries/allUsers");
-const { toHash } = require("../../utils/helpers");
+const allUsers = require("../../queries/allUsers");
+const { toHash, toSafeParse, toJson } = require("../../utils/helpers");
 const insertUser = require("../../queries/insertUser");
 const insertXrefUserTech = require("../../queries/insertXrefUserTech");
 const selectUserById = require("../../queries/selectUserById");
@@ -17,19 +17,19 @@ const getSignUpHandleError = require("../../validation/getSignUpHandleError");
 // @desc       GET a valid user via email and password
 // @access     PUBLIC
 
-// router.get("/", (req, res) => {
-//   // console.log(req.query);
-//   db.query(allUsers)
-//     .then((dbRes) => {
-//       const users = toSafeParse(toJson(dbRes)); // get response and turn it into json, then parse json to convert to array
-//       console.log(users);
-//       res.json(users);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//       res.status(400).json(err);
-//     });
-// });
+router.get("/", (req, res) => {
+  // console.log(req.query);
+  db.query(allUsers)
+    .then((dbRes) => {
+      const users = toSafeParse(toJson(dbRes)); // get response and turn it into json, then parse json to convert to array
+      // console.log(users);
+      res.json(users);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json(err);
+    });
+});
 
 // @route      POST api/v1/users
 // @desc       Create a new user and user xref tech
@@ -48,7 +48,7 @@ router.post("/", async (req, res) => {
   const emailError = await getSignUpEmailError(email);
   const passwordError = getSignUpPasswordError(password, email);
   const handleError = await getSignUpHandleError(handle);
-
+  let dbError = "";
   if (emailError === "" && passwordError === "" && handleError === "") {
     const user = {
       id: id,
@@ -82,16 +82,8 @@ router.post("/", async (req, res) => {
     // user queries
     db.query(insertUser, user)
       .then(() => {
-        db.query(selectUserById, id).then((users) => {
-          const user = users[0];
-          res.status(200).json({
-            id: user.id,
-            handle: user.handle,
-            email: user.email,
-            // gender: user.gender,
-            createdAt: user.created_at,
-          });
-          db.query(selectUserByHandle, handle).then((users) => {
+        db.query(selectUserById, id)
+          .then((users) => {
             const user = users[0];
             res.status(200).json({
               id: user.id,
@@ -100,20 +92,35 @@ router.post("/", async (req, res) => {
               // gender: user.gender,
               createdAt: user.created_at,
             });
+            db.query(selectUserByHandle, handle)
+              .then((users) => {
+                const user = users[0];
+                res.status(200).json({
+                  // id: user.id,
+                  handle: user.handle,
+                  // email: user.email,
+                  // gender: user.gender,
+                  // createdAt: user.created_at,
+                });
+              })
+              .catch((err) => {
+                console.log(err);
+                dbError = `${err.code} ${err.sqlMessage}`;
+                res.status(400).json({ dbError });
+              });
+          })
+          .catch((err) => {
+            console.log(err);
+            dbError = `${err.code} ${err.sqlMessage}`;
+            res.status(400).json({ dbError });
           });
-          //     .catch(() => {
-          //       console.log(err);
-          //       res.status(400).json("something happened in the database.");
-          //     });
-          // })
-          // .catch(() => {
-          //   console.log(err);
-          //   res.status(400).json("something happened in the database.");
-        });
       })
       .catch((err) => {
+        // console.log(err);
+        // res.status(400).json({ emailError, passwordError, handleError });
         console.log(err);
-        res.status(400).json({ emailError, passwordError, handleError });
+        dbError = `${err.code} ${err.sqlMessage}`;
+        res.status(400).json({ dbError });
       });
 
     // tech queries
@@ -142,5 +149,9 @@ router.post("/", async (req, res) => {
     res.status(400).json({ emailError, passwordError, handleError });
   }
 });
+
+// @route      POST api/v1/users/auth
+// @desc       Authorize this user via email and password
+// @access     PUBLIC
 
 module.exports = router;
