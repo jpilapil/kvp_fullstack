@@ -1,6 +1,5 @@
 import React from "react";
 import landingLogo from "../../img/kvp-logo.png";
-// import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUserFriends,
@@ -265,7 +264,7 @@ class Landing extends React.Component {
       //gets value of the selected gender input (male, female, or na)
       // gender: this.state.signUpGenderSelect,
       createdAt: Date.now(),
-      // techInterestedIn: signUpTechInterestInput,
+      techInterestedIn: reactTagsTechInput,
     };
     const userXrefTech = {
       id: getUuid(),
@@ -276,8 +275,8 @@ class Landing extends React.Component {
       userXrefTech.technologyId.push(tech.id);
     });
 
-    // console.log("Created new user object for POST: ", user);
-    // console.log("Created new userXrefTech object for POST: ", userXrefTech);
+    console.log("Created new user object for POST: ", user);
+    console.log("Created new userXrefTech object for POST: ", userXrefTech);
     // console.log(
     //   signUpTechInterestInput.map((tech) => {
     //     return tech.id;
@@ -325,6 +324,17 @@ class Landing extends React.Component {
           this.setState({
             hasSignUpHandleError: false,
             signUpHandleError: handleError,
+          });
+        }
+        if (signUpTechInterestInput !== 3) {
+          this.setState({
+            hasSignUpTechInterestError: true,
+            signUpTechInterestError: "Please select 3 technologies",
+          });
+        } else {
+          this.setState({
+            hasSignUpTechInterestError: false,
+            signUpTechInterestError: "",
           });
         }
       });
