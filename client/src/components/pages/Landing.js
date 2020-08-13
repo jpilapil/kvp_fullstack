@@ -150,42 +150,60 @@ class Landing extends React.Component {
     // password input
     const logInPasswordInput = document.getElementById("logInPasswordInput")
       .value;
-    await this.setLogInEmailState(logInEmailInput);
-    await this.setLogInPasswordState(logInPasswordInput);
-    if (
-      this.state.hasLogInEmailError === false &&
-      this.state.hasLogInPasswordError === false
-    ) {
-      // create user obj
-      const user = {
-        id: getUuid(),
-        email: logInEmailInput,
-        password: logInPasswordInput,
-        createdAt: Date.now(),
-      };
-      console.log("created user object for POST: ", user);
-      // post to api
-      // update current user in global state with api response
-      // go to next page: this.props.history.push("/connect");
+    // await this.setLogInEmailState(logInEmailInput);
+    // await this.setLogInPasswordState(logInPasswordInput);
+    // if (
+    //   this.state.hasLogInEmailError === false &&
+    //   this.state.hasLogInPasswordError === false
+    // ) {
+    const user = {
+      email: logInEmailInput,
+      password: logInPasswordInput,
+    };
+    // console.log("created user object for POST: ", user);
+    // post to api
+    // update current user in global state with api response
+    // go to next page: this.props.history.push("/connect");
 
-      // // mimics api response
-      // axios
-      //   .get(
-      //     "https://raw.githubusercontent.com/jpilapil/key-value-pair/master/src/mock-data/user.json"
-      //   )
-      //   .then((res) => {
-      //     const currentUser = res.data;
-      //     console.log("this is the user stored to global state: ", currentUser);
-      //     this.props.dispatch({
-      //       type: actions.UPDATE_CURRENT_USER,
-      //       payload: res.data,
-      //     });
-      //   })
-      //   .catch((error) => {
-      //     // handle error
-      //     console.log(error);
-      //   });
-    }
+    axios
+      .post("/api/v1/users/auth", user)
+      .then((res) => {
+        this.props.dispatch({
+          // update currentUser in global state in redux with API response
+          type: actions.UPDATE_CURRENT_USER,
+          payload: res.data,
+        });
+        this.props.history.push("/connect");
+      })
+      .catch((err) => {
+        // use error responses to trigger state
+        const { data } = err.response;
+        console.log(data);
+        const { emailError, passwordError } = data;
+        if (emailError !== "") {
+          this.setState({
+            hasLogInEmailError: true,
+            logInEmailError: emailError,
+          });
+        } else {
+          this.setState({
+            hasLogInEmailError: false,
+            logInEmailError: emailError,
+          });
+        }
+        if (passwordError !== "") {
+          this.setState({
+            hasLogInPasswordError: true,
+            logInPasswordError: passwordError,
+          });
+        } else {
+          this.setState({
+            hasLogInPasswordError: false,
+            logInPasswordError: passwordError,
+          });
+        }
+      });
+    // }
   }
 
   // SIGN UP ----------

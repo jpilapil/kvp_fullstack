@@ -8,15 +8,17 @@ const insertUser = require("../../queries/insertUser");
 const insertXrefUserTech = require("../../queries/insertXrefUserTech");
 const selectUserById = require("../../queries/selectUserById");
 const selectUserByHandle = require("../../queries/selectUserByHandle");
+const selectUserByEmail = require("../../queries/selectUserByEmail");
 const { v4: getUuid } = require("uuid");
 const getSignUpEmailError = require("../../validation/getSignUpEmailError");
 const getSignUpPasswordError = require("../../validation/getSignUpPasswordError");
 const getSignUpHandleError = require("../../validation/getSignUpHandleError");
+const getLogInEmailError = require("../../validation/getLogInEmailError");
+const getLogInPasswordError = require("../../validation/getLogInPasswordError");
 
 // @route      GET api/v1/users
 // @desc       GET a valid user via email and password
 // @access     PUBLIC
-
 router.get("/", (req, res) => {
   // console.log(req.query);
   db.query(allUsers)
@@ -151,7 +153,34 @@ router.post("/", async (req, res) => {
 });
 
 // @route      POST api/v1/users/auth
-// @desc       Authorize this user via email and password
+// @desc       Check this user against db via email and password
 // @access     PUBLIC
+router.post("/auth", async (req, res) => {
+  const { email, password } = req.body;
+  const emailError = getLogInEmailError(email);
+  const passwordError = await getLogInPasswordError(password, email);
+  let dbError = "";
+  if (emailError === "" && passwordError === "") {
+    // return the user to the client
+    db.query(selectUserByEmail, email)
+      .then((users) => {
+        const user = users[0];
+        res.status(200).json({
+          // send json with values from database
+          id: user.id,
+          email: user.email,
+          createdAt: user.created_at,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+        dbError = `${err.code} ${err.sqlMessage}`;
+        res.status(400).json({ dbError });
+      });
+  } else {
+    // return 400 status to client
+    res.status(400).json({ emailError, passwordError });
+  }
+});
 
 module.exports = router;
