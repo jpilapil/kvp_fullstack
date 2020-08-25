@@ -108,7 +108,6 @@ class Connect extends React.Component {
 
       this.setState({
         displayedUsers: [...new Set(res)],
-        // displayedUsers: res,
       });
       // const bestMatched = countBy(filteredUsers, "handle");
       // let ob = bestMatched;
