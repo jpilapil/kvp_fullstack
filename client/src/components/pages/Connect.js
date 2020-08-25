@@ -25,23 +25,23 @@ class Connect extends React.Component {
   componentDidMount() {
     // componentDidMount is a lifecycle method, does not need to be called somewhere else, will always run before render
 
-    // get signed in user from redux store
-    axios
-      .get(
-        "https://raw.githubusercontent.com/jpilapil/key-value-pair/master/src/mock-data/user.json"
-      )
-      .then((res) => {
-        const currentUser = res.data;
-        console.log("this is the user stored to global state: ", currentUser);
-        this.props.dispatch({
-          type: actions.UPDATE_CURRENT_USER,
-          payload: res.data,
-        });
-      })
-      .catch((error) => {
-        // handle error
-        console.log(error);
-      });
+    // // get signed in user from redux store
+    // axios
+    //   .get(
+    //     "https://raw.githubusercontent.com/jpilapil/key-value-pair/master/src/mock-data/user.json"
+    //   )
+    //   .then((res) => {
+    //     const currentUser = res.data;
+    //     console.log("this is the user stored to global state: ", currentUser);
+    //     this.props.dispatch({
+    //       type: actions.UPDATE_CURRENT_USER,
+    //       payload: res.data,
+    //     });
+    //   })
+    //   .catch((error) => {
+    //     // handle error
+    //     console.log(error);
+    //   });
 
     // get all users with technology names and set them do displayedUsers & allUsers state
     axios
@@ -102,7 +102,7 @@ class Connect extends React.Component {
       filteredUsers.map((x) => map.set(x.handle, x));
       let res = Object.entries(ob)
         .sort((a, b) => b[1] - a[1])
-        .flatMap((o) => Array(o[1]).fill(map.get(o[0]))); // flat map instead of ...new Set
+        .flatMap((o) => Array(o[1]).fill(map.get(o[0])));
 
       // console.log("sorted array of users: ", res);
 
