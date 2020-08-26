@@ -26,14 +26,14 @@ class Profile extends React.Component {
                     Technologies I'm interested in:
                   </p>
                   <p className="text-lightest mt-1">
-                    {this.props.currentUser.techInterestedIn.map(
-                      (tech) => tech.name + ", "
+                    {this.props.currentUser.technologyName.map(
+                      (tech) => tech + ", "
                     )}
                   </p>
                   <p className="text-light mt-3">Member since:</p>
                   <p className="text-lightest mt-1">
                     {toDisplayDate(
-                      this.props.currentUser.createdAt,
+                      this.props.currentUser.createdAt[0],
                       "MMMM do, y"
                     )}
                   </p>
