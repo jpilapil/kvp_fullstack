@@ -56,12 +56,12 @@ class Connect extends React.Component {
               handle: user.handle,
               email: user.email,
               createdAt: user.created_at,
-              technologies: userTechnologies
-                .filter((technology) => technology.userId === user.id)
-                .map((tech) => tech.technologyId),
               // technologies: userTechnologies
               //   .filter((technology) => technology.userId === user.id)
-              //   .map((tech) => tech.technologyName),
+              //   .map((tech) => tech.technologyId),
+              technologies: userTechnologies
+                .filter((technology) => technology.userId === user.id)
+                .map((tech) => tech.technologyName),
             };
           });
           this.setState({
@@ -83,12 +83,12 @@ class Connect extends React.Component {
       });
     } else {
       // if filter = all matched users, set state of displayedUsers to filtered users
-      const currentUserTechNames = this.props.currentUser.techInterestedIn
-        .map((tech) => tech)
-        .map((id) => id.id);
-      // const currentUserTechNames = this.props.currentUser.techInterestedIn.map(
-      //   (tech) => tech.name
-      // );
+      // const currentUserTechNames = this.props.currentUser.techInterestedIn
+      //   .map((tech) => tech)
+      //   .map((id) => id.id);
+      const currentUserTechNames = this.props.currentUser.techInterestedIn.map(
+        (tech) => tech.name
+      );
       console.log("currentUserTechNames: ", currentUserTechNames);
       const filteredUsers = [];
       currentUserTechNames.forEach((currentUserTechName) => {
