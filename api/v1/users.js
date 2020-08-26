@@ -165,12 +165,14 @@ router.post("/auth", async (req, res) => {
     // return the user to the client
     db.query(selectUserByEmail, email)
       .then((users) => {
-        const user = users[0];
+        const user = users;
         res.status(200).json({
           // send json with values from database
-          id: user.id,
-          email: user.email,
-          createdAt: user.created_at,
+          id: user.map((id) => id.user_id),
+          email: user.map((email) => email.email),
+          createdAt: user.map((created) => created.created_at),
+          technologyName: user.map((tech) => tech.name),
+          technologyId: user.map((techId) => techId.technology_id),
         });
       })
       .catch((err) => {

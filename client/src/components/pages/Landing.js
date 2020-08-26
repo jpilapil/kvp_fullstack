@@ -168,6 +168,7 @@ class Landing extends React.Component {
     axios
       .post("/api/v1/users/auth", user)
       .then((res) => {
+        console.log("data stored to redux store: ", res.data);
         this.props.dispatch({
           // update currentUser in global state in redux with API response
           type: actions.UPDATE_CURRENT_USER,

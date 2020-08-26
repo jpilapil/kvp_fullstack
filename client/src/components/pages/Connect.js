@@ -26,22 +26,22 @@ class Connect extends React.Component {
     // componentDidMount is a lifecycle method, does not need to be called somewhere else, will always run before render
 
     // get signed in user from redux store
-    axios
-      .get(
-        "https://raw.githubusercontent.com/jpilapil/key-value-pair/master/src/mock-data/user.json"
-      )
-      .then((res) => {
-        const currentUser = res.data;
-        console.log("this is the user stored to global state: ", currentUser);
-        this.props.dispatch({
-          type: actions.UPDATE_CURRENT_USER,
-          payload: res.data,
-        });
-      })
-      .catch((error) => {
-        // handle error
-        console.log(error);
-      });
+    // axios
+    //   .get(
+    //     "https://raw.githubusercontent.com/jpilapil/key-value-pair/master/src/mock-data/user.json"
+    //   )
+    //   .then((res) => {
+    //     const currentUser = res.data;
+    //     console.log("this is the user stored to global state: ", currentUser);
+    //     this.props.dispatch({
+    //       type: actions.UPDATE_CURRENT_USER,
+    //       payload: res.data,
+    //     });
+    //   })
+    //   .catch((error) => {
+    //     // handle error
+    //     console.log(error);
+    //   });
 
     // get all users with technology names and set them do displayedUsers & allUsers state
     axios
@@ -86,9 +86,10 @@ class Connect extends React.Component {
       // const currentUserTechNames = this.props.currentUser.techInterestedIn
       //   .map((tech) => tech)
       //   .map((id) => id.id);
-      const currentUserTechNames = this.props.currentUser.techInterestedIn.map(
-        (tech) => tech.name
-      );
+      // const currentUserTechNames = this.props.currentUser.techInterestedIn.map(
+      //   (tech) => tech.name
+      // );
+      const currentUserTechNames = this.props.currentUser.technologyName;
       console.log("currentUserTechNames: ", currentUserTechNames);
       const filteredUsers = [];
       currentUserTechNames.forEach((currentUserTechName) => {
