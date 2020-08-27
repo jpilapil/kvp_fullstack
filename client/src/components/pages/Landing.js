@@ -318,6 +318,7 @@ class Landing extends React.Component {
       .post("/api/v1/users", user)
       .then((res) => {
         console.log(res.data);
+        this.setLogInTitle();
       })
       .catch((err) => {
         const { data } = err.response;
@@ -368,7 +369,7 @@ class Landing extends React.Component {
           });
         }
       });
-    this.setLogInTitle();
+
     // update currentUser in global state with API response
     // go to next page: this.props.history.push("/connect")
 
