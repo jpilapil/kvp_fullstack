@@ -39,6 +39,9 @@ class Landing extends React.Component {
       hasSignUpTechInterestError: false,
       // hasSignUpGenderError: false,
 
+      accountCreatedTitle: "",
+      logInTitle: "Log in with your email and password.",
+
       tags: [],
       suggestions: [],
     };
@@ -75,6 +78,14 @@ class Landing extends React.Component {
       logInPasswordError: "",
       hasLogInEmailError: false,
       hasLogInPasswordError: false,
+    });
+  }
+
+  setLogInTitle() {
+    this.setState({
+      logInTitle: "",
+      accountCreatedTitle: "Account created! Please log in.",
+      landingCard: "log-in",
     });
   }
   // set sign up card
@@ -357,6 +368,7 @@ class Landing extends React.Component {
           });
         }
       });
+    this.setLogInTitle();
     // update currentUser in global state with API response
     // go to next page: this.props.history.push("/connect")
 
@@ -388,7 +400,10 @@ class Landing extends React.Component {
           <div className="card-body">
             <h2 className="card-title">Welcome back</h2>
             <p className="card-text-landing text-secondary">
-              Log in with your email and password.
+              {this.state.logInTitle}
+            </p>
+            <p className="card-text-landing text-success">
+              {this.state.accountCreatedTitle}
             </p>
             <div className="form-group">
               <label className="text-light" htmlFor="logInEmailInput">
