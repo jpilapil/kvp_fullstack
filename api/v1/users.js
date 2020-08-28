@@ -167,19 +167,16 @@ router.post("/auth", async (req, res) => {
     // return the user to the client
     db.query(selectUserByEmail, email)
       .then((users) => {
-        const user = {
-          id: users.map((id) => id.user_id),
-          email: users.map((email) => email.email),
-          createdAt: users.map((created) => created.created_at),
-          technologyName: users.map((tech) => tech.name),
-          technologyId: users.map((techId) => techId.technology_id),
-        };
-        const accessToken = jwt.sign(user, process.env.JWT_ACCESS_SECRET, {
-          expiresIn: "1d",
-        });
         // returns 3 user objects from the db with inner join
-        console.log(user);
-        res.status(200).json(accessToken);
+        const user = users;
+        res.status(200).json({
+          // send json with values from database
+          id: user.map((id) => id.user_id),
+          email: user.map((email) => email.email),
+          createdAt: user.map((created) => created.created_at),
+          technologyName: user.map((tech) => tech.name),
+          technologyId: user.map((techId) => techId.technology_id),
+        });
       })
       .catch((err) => {
         console.log(err);
