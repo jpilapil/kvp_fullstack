@@ -18,6 +18,8 @@
     "concurrently": "^5.2.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^2.2.0",
     "mysql": "^2.18.1",
     "react-tag-autocomplete": "^6.0.0",
     "uuid": "^8.3.0"
