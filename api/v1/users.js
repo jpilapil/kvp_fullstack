@@ -181,6 +181,7 @@ router.post("/auth", async (req, res) => {
         const user = {
           id: users.map((id) => id.user_id),
           email: users.map((email) => email.email),
+          handle: users.map((handle) => handle.handle),
           createdAt: users.map((created) => created.created_at),
           technologyName: users.map((tech) => tech.name),
           technologyId: users.map((techId) => techId.technology_id),

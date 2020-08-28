@@ -18,7 +18,7 @@ class Profile extends React.Component {
               <div className="card">
                 <div className="card-body">
                   <h4 className="text-primary">
-                    {this.props.currentUser.handle}
+                    {this.props.currentUser.handle[0]}
                   </h4>
                   <p className="text-light mt-3">
                     Technologies I'm interested in:
