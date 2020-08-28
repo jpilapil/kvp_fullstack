@@ -179,10 +179,10 @@ router.post("/auth", async (req, res) => {
         // });
 
         const user = {
-          id: users.map((id) => id.user_id),
-          email: users.map((email) => email.email),
-          handle: users.map((handle) => handle.handle),
-          createdAt: users.map((created) => created.created_at),
+          id: users.map((id) => id.user_id)[0],
+          email: users.map((email) => email.email)[0],
+          handle: users.map((handle) => handle.handle)[0],
+          createdAt: users.map((created) => created.created_at)[0],
           technologyName: users.map((tech) => tech.name),
           technologyId: users.map((techId) => techId.technology_id),
         };

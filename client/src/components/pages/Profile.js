@@ -18,7 +18,7 @@ class Profile extends React.Component {
               <div className="card">
                 <div className="card-body">
                   <h4 className="text-primary">
-                    {this.props.currentUser.handle[0]}
+                    {this.props.currentUser.handle}
                   </h4>
                   <p className="text-light mt-3">
                     Technologies I'm interested in:
@@ -31,7 +31,7 @@ class Profile extends React.Component {
                   <p className="text-light mt-3">Member since:</p>
                   <p className="text-lightest mt-1">
                     {toDisplayDate(
-                      this.props.currentUser.createdAt[0],
+                      this.props.currentUser.createdAt,
                       "MMMM do, y"
                     )}
                   </p>
