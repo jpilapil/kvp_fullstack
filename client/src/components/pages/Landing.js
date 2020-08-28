@@ -14,7 +14,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import actions from "../../store/actions";
 import ReactTags from "react-tag-autocomplete";
-// import jwtDecode from "jwt-decode";
+import jwtDecode from "jwt-decode";
 
 class Landing extends React.Component {
   constructor() {
@@ -166,13 +166,13 @@ class Landing extends React.Component {
       .then((res) => {
         console.log("data stored to redux store: ", res.data);
         // set in local storage
-        // const authToken = res.data;
-        // localStorage.setItem("authToken", authToken);
-        // const user = jwtDecode(authToken);
+        const authToken = res.data;
+        localStorage.setItem("authToken", authToken);
+        const user = jwtDecode(authToken);
         this.props.dispatch({
           // update currentUser in global state in redux with API response
           type: actions.UPDATE_CURRENT_USER,
-          payload: res.data,
+          payload: user,
         });
         this.props.history.push("/connect");
       })
