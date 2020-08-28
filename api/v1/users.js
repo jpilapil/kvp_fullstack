@@ -179,6 +179,7 @@ router.post("/auth", async (req, res) => {
         // });
 
         const user = {
+          // there are 3 total user objects being passed
           id: users.map((id) => id.user_id)[0],
           email: users.map((email) => email.email)[0],
           handle: users.map((handle) => handle.handle)[0],
