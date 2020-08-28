@@ -106,13 +106,6 @@ class Landing extends React.Component {
     });
   }
 
-  // gets value of radio
-  // handleChange = (e) => {
-  //   this.setState({
-  //     signUpGenderSelect: e.target.value,
-  //   });
-  // };
-
   // LOG IN ----------
   async setLogInEmailState(logInEmailInput) {
     const lowerCasedEmailInput = logInEmailInput.toLowerCase();
@@ -161,20 +154,11 @@ class Landing extends React.Component {
     // password input
     const logInPasswordInput = document.getElementById("logInPasswordInput")
       .value;
-    // await this.setLogInEmailState(logInEmailInput);
-    // await this.setLogInPasswordState(logInPasswordInput);
-    // if (
-    //   this.state.hasLogInEmailError === false &&
-    //   this.state.hasLogInPasswordError === false
-    // ) {
+
     const user = {
       email: logInEmailInput,
       password: logInPasswordInput,
     };
-    // console.log("created user object for POST: ", user);
-    // post to api
-    // update current user in global state with api response
-    // go to next page: this.props.history.push("/connect");
 
     axios
       .post("/api/v1/users/auth", user)
@@ -234,23 +218,6 @@ class Landing extends React.Component {
     }
   }
 
-  // async setGenderState(genderSelect) {
-  //   if (
-  //     // if genderSelect is empty, throw error
-  //     genderSelect === ""
-  //   ) {
-  //     this.setState({
-  //       signUpGenderError: "Please select your gender",
-  //       hasSignUpGenderError: true,
-  //     });
-  //   } else {
-  //     this.setState({
-  //       signUpGenderError: "",
-  //       hasSignUpGenderError: false,
-  //     });
-  //   }
-  // }
-  // !!!!!! convert all these similar to gender input !!!!!!
   // sign up errors
   async createNewUser() {
     // email input
@@ -270,21 +237,6 @@ class Landing extends React.Component {
     ).length;
     const reactTagsTechInput = this.state.tags;
 
-    // gender input
-    // const signUpGenderSelect = this.state.signUpGenderSelect;
-
-    // await this.setSignUpEmailState(signUpEmailInput);
-    // await this.setSignUpPasswordState(signUpPasswordInput, signUpEmailInput);
-    // await this.setSignUpHandleState(signUpHandleInput);
-    // await this.setTechInterestState(signUpTechInterestInput);
-    // await this.setGenderState(signUpGenderSelect);
-    // if (
-    //   // this.state.hasSignUpEmailError === false &&
-    //   // this.state.hasSignUpPasswordError === false &&
-    //   // this.state.hasSignUpHandleError === false &&
-    //   this.state.hasSignUpTechInterestError === false
-    //   // this.state.hasSignUpGenderError === false
-    // ) {
     // create user obj
     const user = {
       id: getUuid(),
@@ -307,12 +259,7 @@ class Landing extends React.Component {
 
     console.log("Created new user object for POST: ", user);
     console.log("Created new userXrefTech object for POST: ", userXrefTech);
-    // console.log(
-    //   signUpTechInterestInput.map((tech) => {
-    //     return tech.id;
-    //   })
-    // );
-    // console.log("tech ids: ", signUpTechInterestInput);
+
     // post to API
     axios
       .post("/api/v1/users", user)
@@ -372,25 +319,6 @@ class Landing extends React.Component {
 
     // update currentUser in global state with API response
     // go to next page: this.props.history.push("/connect")
-
-    // // mimics api response
-    // axios
-    //   .get(
-    //     "https://raw.githubusercontent.com/jpilapil/key-value-pair/master/src/mock-data/user.json"
-    //   )
-    //   .then((res) => {
-    //     const currentUser = res.data;
-    //     console.log("this is the user stored to global state: ", currentUser);
-    //     this.props.dispatch({
-    //       type: actions.UPDATE_CURRENT_USER,
-    //       payload: res.data,
-    //     });
-    //   })
-    //   .catch((error) => {
-    //     // handle error
-    //     console.log(error);
-    //   });
-    // }
   }
 
   // log in card -- shown as default state

@@ -1,7 +1,5 @@
 import React from "react";
 import AppTemplate from "../ui/AppTemplate";
-// import OtherUser from "../ui/OtherUser";
-// import { Link } from "react-router-dom";
 import toDisplayDate from "date-fns/format";
 import { connect } from "react-redux";
 
