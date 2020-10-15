@@ -1,7 +1,16 @@
-# kvp_fullstack
+## Key:Value Pairs
 
-## Key Value Pairs is a platform that allows users to connect with others based on the technologies they are interested in. 
-Choose from over 1,500 technologies and match with other users!
+KVP is a platform that connects users based on their technological interests. Users can choose from a list of over 1,500 (yes, 1,500) technologies and pair program together.
 
-### Check it out!
-https://keyvaluepairs.herokuapp.com/
+### Technologies used
+
+- React.js
+- Node.js
+- MySQL
+- Express
+- Bootstrap
+- Heroku
+
+### Check the full stack application here!
+
+[Key:Value Pairs](https://keyvaluepairs.herokuapp.com/)
