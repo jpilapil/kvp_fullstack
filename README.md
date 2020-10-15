@@ -11,6 +11,6 @@ KVP is a platform that connects users based on their technological interests. Us
 - Bootstrap
 - Heroku
 
-### Check the full stack application here!
+### Check out the full stack application here!
 
 [Key:Value Pairs](https://keyvaluepairs.herokuapp.com/)
