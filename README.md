@@ -1,3 +1,7 @@
+## Check out the full stack application here!
+
+[Key:Value Pairs](https://keyvaluepairs.herokuapp.com/)
+
 ## Key:Value Pairs
 
 
@@ -16,6 +20,4 @@ KVP is a platform that connects users based on their technological interests. Us
 - Bootstrap
 - Heroku
 
-### Check out the full stack application here!
 
-[Key:Value Pairs](https://keyvaluepairs.herokuapp.com/)
